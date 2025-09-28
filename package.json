@@ -1,0 +1,9 @@
+{
+  "name": "companion-plus",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd Companionplus-backend && npm run dev",
+    "frontend": "cd CompanionPlusApp && npx expo start"
+  }
+}
