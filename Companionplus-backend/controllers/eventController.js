@@ -1,42 +1,28 @@
-// controllers/eventController.js
+const Event = require("../models/Event");
 
-const Event = require('../models/Event');
-
-// Add new event
+// ➕ Add Event
 exports.addEvent = async (req, res) => {
   try {
-    const { title, description, date, sharedWith } = req.body;
+    const { title, date } = req.body;
 
-    const newEvent = new Event({
+    const event = await Event.create({
+      userId: req.user.id,
       title,
-      description,
       date,
-      createdBy: req.user._id,
-      userModel: req.user.role, // 'Elder' or 'Relation'
-      sharedWith
     });
 
-    await newEvent.save();
-    res.status(201).json({ message: 'Event created', event: newEvent });
+    res.status(201).json(event);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Get events for a user
+// 📅 Get All Events
 exports.getEvents = async (req, res) => {
   try {
-    const userId = req.user._id;
-
-    const events = await Event.find({
-      $or: [
-        { createdBy: userId },
-        { sharedWith: userId }
-      ]
-    }).sort({ date: 1 });
-
+    const events = await Event.find({ userId: req.user.id });
     res.json(events);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };

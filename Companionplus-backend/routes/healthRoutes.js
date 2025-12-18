@@ -1,12 +1,14 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-
+const auth = require("../middleware/authMiddleware");
 const {
   addHealthRecord,
   getHealthHistory,
-} = require('../controllers/healthController');
+  getLatestHealthRecord,
+} = require("../controllers/healthController");
 
-router.post('/add', addHealthRecord);
-router.get('/history/:elderId', getHealthHistory);
+router.post("/", auth, addHealthRecord);
+router.get("/", auth, getHealthHistory);
+router.get("/latest", auth, getLatestHealthRecord);
 
 module.exports = router;

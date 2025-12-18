@@ -1,79 +1,287 @@
-// Path: CompanionPlusApp/screens/common/SettingsScreen.tsx
 
-import React from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
+
+// import React from 'react';
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   TouchableOpacity,
+//   Alert,
+// } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+
+// const SettingsScreen: React.FC = () => {
+//   const navigation = useNavigation();
+
+//   const handleLogout = () => {
+//     Alert.alert(
+//       "Logout",
+//       "Are you sure you want to logout?",
+//       [
+//         { text: "Cancel", style: "cancel" },
+//         { text: "Logout", onPress: () => navigation.navigate("LoginAsElder" as never) }
+//       ]
+//     );
+//   };
+
+//   return (
+//     <View style={styles.container}>
+
+//       <Text style={styles.header}>Settings</Text>
+//       <Text style={styles.subtitle}>Manage your preferences</Text>
+
+//       <View style={styles.card}>
+
+//         <TouchableOpacity
+//           style={styles.item}
+//           onPress={() => navigation.navigate("EditProfile" as never)}
+//         >
+//           <Text style={styles.itemText}>👤   Change Profile</Text>
+//         </TouchableOpacity>
+
+       
+
+//         <TouchableOpacity
+//           style={styles.item}
+//           onPress={() => navigation.navigate("EditProfile" as never)}
+//         >
+//           <Text style={styles.itemText}>🔑   Change Password</Text>
+//         </TouchableOpacity>
+
+//         <TouchableOpacity
+//           style={[styles.item, styles.logout]}
+//           onPress={handleLogout}
+//         >
+//           <Text style={[styles.itemText, styles.logoutText]}>🚪   Log Out</Text>
+//         </TouchableOpacity>
+
+//       </View>
+//     </View>
+//   );
+// };
+
+// export default SettingsScreen;
+
+// /* ------------------ STYLES ------------------ */
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingTop: 60,
+//     paddingHorizontal: 20,
+//     backgroundColor: '#F3F4F6',
+//   },
+
+//   header: {
+//     fontSize: 28,
+//     fontWeight: 'bold',
+//     color: '#111827',
+//     textAlign: 'center',
+//   },
+
+//   subtitle: {
+//     fontSize: 16,
+//     color: '#6B7280',
+//     textAlign: 'center',
+//     marginBottom: 25,
+//   },
+
+//   card: {
+//     backgroundColor: '#FFFFFF',
+//     borderRadius: 16,
+//     paddingVertical: 10,
+//     paddingHorizontal: 15,
+//     elevation: 5,
+//   },
+
+//   item: {
+//     paddingVertical: 18,
+//     borderBottomWidth: 1,
+//     borderColor: '#E5E7EB',
+//   },
+
+//   itemText: {
+//     fontSize: 18,
+//     color: '#374151',
+//   },
+
+//   logout: {
+//     borderBottomWidth: 0,
+//     marginTop: 10,
+//   },
+
+//   logoutText: {
+//     color: '#DC2626',
+//     fontWeight: 'bold',
+//   },
+// });
+
+
+
+
+
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Image,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const SettingsScreen: React.FC = () => {
   const navigation = useNavigation();
 
-  // Function to handle log out
   const handleLogout = () => {
     Alert.alert(
       "Logout",
       "Are you sure you want to logout?",
       [
         { text: "Cancel", style: "cancel" },
-        { text: "Logout", onPress: () => navigation.navigate("LoginAsElder" as never) } // Navigate to Login screen
+        {
+          text: "Logout",
+          style: "destructive",
+          onPress: () => navigation.navigate("LoginAsElder" as never),
+        },
       ]
     );
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Settings</Text>
-      <Text style={styles.subtitle}>Manage your app preferences</Text>
-
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Change Profile"
-          onPress={() => navigation.navigate("EditProfile" as never)} // Navigate to Edit Profile screen
-        />
-        <br></br>
-        <Button
-          title="Notifications Settings"
-          onPress={() => navigation.navigate("HealthDashboard" as never)} // Example, navigate to Health Dashboard or Settings
-        />
-        <br></br>
-        <Button
-          title="Change Password"
-          onPress={() => navigation.navigate("HealthDashboard" as never)} // Example, navigate to relevant screen
-        />
-        <br></br>
-        <Button
-          title="Log Out"
-          onPress={handleLogout} // Handle logout functionality
-        />
+      {/* ================= PROFILE HEADER ================= */}
+      <View style={styles.profileCard}>
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>A</Text>
+        </View>
+        <View>
+          <Text style={styles.name}>Anisa</Text>
+          <Text style={styles.email}>anisa@email.com</Text>
+        </View>
       </View>
+
+      {/* ================= SETTINGS CARD ================= */}
+      <View style={styles.card}>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => navigation.navigate("EditProfile" as never)}
+        >
+          <Text style={styles.icon}>👤</Text>
+          <Text style={styles.itemText}>Edit Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => navigation.navigate("ChangePassword" as never)}
+        >
+          <Text style={styles.icon}>🔑</Text>
+          <Text style={styles.itemText}>Change Password</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.item}>
+          <Text style={styles.icon}>🌙</Text>
+          <Text style={styles.itemText}>Dark Mode</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* ================= LOGOUT ================= */}
+      <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
+        <Text style={styles.logoutText}>🚪 Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
+export default SettingsScreen;
+
+/* ================= STYLES ================= */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#F3F4F6",
+    paddingHorizontal: 20,
+    paddingTop: 40,
+  },
+
+  /* PROFILE */
+  profileCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#075E54",
     padding: 20,
-    backgroundColor: '#F9FAFB',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: 18,
+    marginBottom: 25,
   },
-  header: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#4B5563',
+
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#25D366",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 15,
   },
-  subtitle: {
+
+  avatarText: {
+    color: "#FFFFFF",
+    fontSize: 26,
+    fontWeight: "bold",
+  },
+
+  name: {
+    fontSize: 20,
+    color: "#FFFFFF",
+    fontWeight: "bold",
+  },
+
+  email: {
+    fontSize: 14,
+    color: "#D1FAE5",
+    marginTop: 4,
+  },
+
+  /* CARD */
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    paddingVertical: 5,
+    elevation: 4,
+  },
+
+  item: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderColor: "#E5E7EB",
+  },
+
+  icon: {
+    fontSize: 22,
+    width: 35,
+  },
+
+  itemText: {
+    fontSize: 17,
+    color: "#374151",
+  },
+
+  /* LOGOUT */
+  logoutBtn: {
+    marginTop: 30,
+    backgroundColor: "#FEE2E2",
+    paddingVertical: 16,
+    borderRadius: 14,
+    alignItems: "center",
+  },
+
+  logoutText: {
     fontSize: 18,
-    marginBottom: 30,
-    color: '#6B7280',
-  },
-  buttonContainer: {
-    width: '100%',
-    marginTop: 20,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    fontWeight: "bold",
+    color: "#DC2626",
   },
 });
-
-export default SettingsScreen;

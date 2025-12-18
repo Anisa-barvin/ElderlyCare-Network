@@ -139,8 +139,439 @@ const styles = StyleSheet.create({
 export default BookConsultationScreen;
 */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState } from 'react';
+// import { View, Text, TextInput, Button, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+// import DateTimePicker from '@react-native-community/datetimepicker';
+
+// const BookConsultationScreen = () => {
+//   const [patientName, setPatientName] = useState('');
+//   const [age, setAge] = useState('');
+//   const [gender, setGender] = useState('');
+//   const [relation, setRelation] = useState('');
+//   const [consultationType, setConsultationType] = useState('Online');
+//   const [symptoms, setSymptoms] = useState('');
+//   const [notes, setNotes] = useState('');
+//   const [mobile, setMobile] = useState('');
+//   const [email, setEmail] = useState('');
+
+//   const [date, setDate] = useState(new Date());
+//   const [showDatePicker, setShowDatePicker] = useState(false);
+
+//   const [time, setTime] = useState(new Date());
+//   const [showTimePicker, setShowTimePicker] = useState(false);
+
+//   const handleBook = () => {
+//     // handle booking logic here
+//     console.log('Booking Submitted!');
+//   };
+
+//   return (
+//     <ScrollView contentContainerStyle={styles.container}>
+//       <Text style={styles.heading}>Book Consultation</Text>
+
+//       {/* Doctor Info (Static Example) */}
+//       <View style={styles.card}>
+//         <Text style={styles.label}>Doctor: Dr. Priya Sharma</Text>
+//         <Text style={styles.label}>Speciality: Cardiologist</Text>
+//         <Text style={styles.label}>Clinic: ABC Hospital</Text>
+//       </View>
+
+//       <Text style={styles.section}>Patient Information</Text>
+
+//       <TextInput style={styles.input} placeholder="Patient Name" value={patientName} onChangeText={setPatientName} />
+//       <TextInput style={styles.input} placeholder="Age" keyboardType="numeric" value={age} onChangeText={setAge} />
+//       <TextInput style={styles.input} placeholder="Gender" value={gender} onChangeText={setGender} />
+//       <TextInput style={styles.input} placeholder="Relation to Elder" value={relation} onChangeText={setRelation} />
+
+//       <Text style={styles.section}>Consultation Details</Text>
+
+//       <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+//         <Text style={styles.dateButton}>Select Date: {date.toDateString()}</Text>
+//       </TouchableOpacity>
+//       {showDatePicker && (
+//         <DateTimePicker
+//           value={date}
+//           mode="date"
+//           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+//           onChange={(event, selectedDate) => {
+//             setShowDatePicker(false);
+//             if (selectedDate) setDate(selectedDate);
+//           }}
+//         />
+//       )}
+
+//       <TouchableOpacity onPress={() => setShowTimePicker(true)}>
+//         <Text style={styles.dateButton}>Select Time: {time.toLocaleTimeString()}</Text>
+//       </TouchableOpacity>
+//       {showTimePicker && (
+//         <DateTimePicker
+//           value={time}
+//           mode="time"
+//           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+//           onChange={(event, selectedTime) => {
+//             setShowTimePicker(false);
+//             if (selectedTime) setTime(selectedTime);
+//           }}
+//         />
+//       )}
+
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Type of Consultation (Online / In-person)"
+//         value={consultationType}
+//         onChangeText={setConsultationType}
+//       />
+
+//       <TextInput
+//         style={[styles.input, { height: 100 }]}
+//         placeholder="Symptoms / Health Concern"
+//         multiline
+//         value={symptoms}
+//         onChangeText={setSymptoms}
+//       />
+
+//       <TextInput
+//         style={[styles.input, { height: 80 }]}
+//         placeholder="Message to Doctor (Optional)"
+//         multiline
+//         value={notes}
+//         onChangeText={setNotes}
+//       />
+
+//       <Text style={styles.section}>Contact Info</Text>
+
+//       <TextInput style={styles.input} placeholder="Mobile Number" keyboardType="phone-pad" value={mobile} onChangeText={setMobile} />
+//       <TextInput style={styles.input} placeholder="Email (optional)" keyboardType="email-address" value={email} onChangeText={setEmail} />
+
+//       <Button title="Book Consultation" onPress={handleBook} color="#007AFF" />
+//     </ScrollView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     padding: 20,
+//     paddingBottom: 40,
+//     backgroundColor: '#f9f9f9',
+//   },
+//   heading: {
+//     fontSize: 22,
+//     fontWeight: 'bold',
+//     marginBottom: 10,
+//   },
+//   section: {
+//     fontSize: 18,
+//     fontWeight: '600',
+//     marginTop: 20,
+//     marginBottom: 5,
+//   },
+//   card: {
+//     backgroundColor: '#e0f7fa',
+//     padding: 15,
+//     borderRadius: 10,
+//     marginBottom: 15,
+//   },
+//   label: {
+//     fontSize: 16,
+//     marginBottom: 3,
+//   },
+//   input: {
+//     backgroundColor: '#fff',
+//     padding: 12,
+//     borderRadius: 8,
+//     borderWidth: 1,
+//     borderColor: '#ccc',
+//     marginBottom: 12,
+//   },
+//   dateButton: {
+//     color: '#007AFF',
+//     marginBottom: 10,
+//   },
+// });
+
+// export default BookConsultationScreen;
+
+
+
+
+
+// import React, { useState } from 'react';
+// import {
+//   View,
+//   Text,
+//   TextInput,
+//   TouchableOpacity,
+//   ScrollView,
+//   StyleSheet,
+//   Platform,
+// } from 'react-native';
+// import DateTimePicker from '@react-native-community/datetimepicker';
+
+// const BookConsultationScreen = () => {
+//   const [patientName, setPatientName] = useState('');
+//   const [age, setAge] = useState('');
+//   const [gender, setGender] = useState('');
+//   const [relation, setRelation] = useState('');
+
+//   const [consultationType, setConsultationType] = useState('Online');
+//   const [symptoms, setSymptoms] = useState('');
+//   const [notes, setNotes] = useState('');
+//   const [mobile, setMobile] = useState('');
+//   const [email, setEmail] = useState('');
+
+//   const [date, setDate] = useState(new Date());
+//   const [time, setTime] = useState(new Date());
+
+//   const [showDatePicker, setShowDatePicker] = useState(false);
+//   const [showTimePicker, setShowTimePicker] = useState(false);
+
+//   const handleBook = () => {
+//     console.log("Booking Submitted!");
+//   };
+
+//   return (
+//     <ScrollView 
+//       contentContainerStyle={styles.container}
+//       style={{ flex: 1 }}
+//       showsVerticalScrollIndicator={true}  // <-- scroll bar enabled
+//     >
+
+//       {/* Header */}
+//       <Text style={styles.heading}>🩺 Book a Consultation</Text>
+//       <Text style={styles.subHeading}>
+//         Fill out the details below to schedule a consultation.
+//       </Text>
+
+//       {/* Doctor Info */}
+//       <View style={styles.card}>
+//         <Text style={styles.cardTitle}>Doctor Details</Text>
+//         <Text style={styles.cardText}>👩‍⚕️ Dr. Priya Sharma</Text>
+//         <Text style={styles.cardText}>💼 Cardiologist</Text>
+//         <Text style={styles.cardText}>🏥 ABC Hospital</Text>
+//       </View>
+
+//       {/* Patient Info */}
+//       <Text style={styles.section}>Patient Information</Text>
+//       <View style={styles.card}>
+//         {renderInput("Patient Name", patientName, setPatientName)}
+//         {renderInput("Age", age, setAge, "numeric")}
+//         {renderInput("Gender", gender, setGender)}
+//         {renderInput("Relation to Elder", relation, setRelation)}
+//       </View>
+
+//       {/* Consultation Details */}
+//       <Text style={styles.section}>Consultation Details</Text>
+//       <View style={styles.card}>
+
+//         {/* Date Picker */}
+//         <TouchableOpacity style={styles.selector} onPress={() => setShowDatePicker(true)}>
+//           <Text style={styles.selectorLabel}>📅 Select Date</Text>
+//           <Text style={styles.selectorValue}>{date.toDateString()}</Text>
+//         </TouchableOpacity>
+
+//         {showDatePicker && (
+//           <DateTimePicker
+//             value={date}
+//             mode="date"
+//             display={Platform.OS === "ios" ? "spinner" : "default"}
+//             onChange={(event, selected) => {
+//               setShowDatePicker(false);
+//               if (selected) setDate(selected);
+//             }}
+//           />
+//         )}
+
+//         {/* Time Picker */}
+//         <TouchableOpacity style={styles.selector} onPress={() => setShowTimePicker(true)}>
+//           <Text style={styles.selectorLabel}>⏰ Select Time</Text>
+//           <Text style={styles.selectorValue}>{time.toLocaleTimeString()}</Text>
+//         </TouchableOpacity>
+
+//         {showTimePicker && (
+//           <DateTimePicker
+//             value={time}
+//             mode="time"
+//             display={Platform.OS === "ios" ? "spinner" : "default"}
+//             onChange={(event, selected) => {
+//               setShowTimePicker(false);
+//               if (selected) setTime(selected);
+//             }}
+//           />
+//         )}
+
+//         {/* Consultation type */}
+//         {renderInput("Type of Consultation (Online / In-person)", consultationType, setConsultationType)}
+
+//         {/* Symptoms */}
+//         {renderInput("Symptoms / Concern", symptoms, setSymptoms, "default", 100)}
+
+//         {/* Notes */}
+//         {renderInput("Message to Doctor (Optional)", notes, setNotes, "default", 80)}
+//       </View>
+
+//       {/* Contact Info */}
+//       <Text style={styles.section}>Contact Details</Text>
+//       <View style={styles.card}>
+//         {renderInput("Mobile Number", mobile, setMobile, "phone-pad")}
+//         {renderInput("Email (Optional)", email, setEmail, "email-address")}
+//       </View>
+
+//       {/* Submit Button */}
+//       <TouchableOpacity style={styles.bookButton} onPress={handleBook}>
+//         <Text style={styles.bookButtonText}>Confirm Booking</Text>
+//       </TouchableOpacity>
+//     </ScrollView>
+//   );
+// };
+
+// /* ---- Reusable Input Component ---- */
+// const renderInput = (
+//   label: string,
+//   value: string,
+//   setValue: (text: string) => void,
+//   keyboard: "default" | "numeric" | "email-address" | "phone-pad" = "default",
+//   height: number = 50
+// ) => (
+//   <View style={styles.inputContainer}>
+//     <Text style={styles.inputLabel}>{label}</Text>
+//     <TextInput
+//       style={[styles.input, { height }]}
+//       value={value}
+//       onChangeText={setValue}
+//       placeholder={label}
+//       keyboardType={keyboard}
+//       multiline={height > 60}
+//     />
+//   </View>
+// );
+
+
+// /* ------------ STYLES ------------ */
+// const styles = StyleSheet.create({
+//   container: {
+//     padding: 20,
+//     backgroundColor: "#F3F4F6",
+//   },
+
+//   heading: {
+//     fontSize: 26,
+//     fontWeight: "bold",
+//     color: "#1F2937",
+//   },
+
+//   subHeading: {
+//     fontSize: 15,
+//     color: "#4B5563",
+//     marginBottom: 20,
+//   },
+
+//   section: {
+//     fontSize: 20,
+//     marginTop: 20,
+//     fontWeight: "bold",
+//     color: "#1F2937",
+//   },
+
+//   card: {
+//     backgroundColor: "#FFFFFF",
+//     padding: 18,
+//     borderRadius: 12,
+//     marginTop: 12,
+//     shadowColor: "#000",
+//     shadowOpacity: 0.08,
+//     shadowRadius: 6,
+//     elevation: 3,
+//   },
+
+//   cardTitle: {
+//     fontSize: 18,
+//     fontWeight: "700",
+//     marginBottom: 10,
+//   },
+
+//   cardText: {
+//     fontSize: 15,
+//     marginBottom: 4,
+//   },
+
+//   inputContainer: {
+//     marginBottom: 14,
+//   },
+
+//   inputLabel: {
+//     fontSize: 14,
+//     color: "#374151",
+//     marginBottom: 4,
+//   },
+
+//   input: {
+//     backgroundColor: "#F9FAFB",
+//     borderWidth: 1,
+//     borderColor: "#D1D5DB",
+//     padding: 12,
+//     borderRadius: 8,
+//     fontSize: 15,
+//   },
+
+//   selector: {
+//     paddingVertical: 10,
+//     marginBottom: 12,
+//   },
+
+//   selectorLabel: {
+//     fontSize: 14,
+//     color: "#374151",
+//   },
+
+//   selectorValue: {
+//     fontSize: 16,
+//     color: "#2563EB",
+//     fontWeight: "600",
+//   },
+
+//   bookButton: {
+//     backgroundColor: "#2563EB",
+//     paddingVertical: 14,
+//     marginTop: 25,
+//     borderRadius: 10,
+//     alignItems: "center",
+//   },
+
+//   bookButtonText: {
+//     color: "#FFFFFF",
+//     fontSize: 18,
+//     fontWeight: "700",
+//   },
+// });
+
+// export default BookConsultationScreen;
+
+
+
+
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, ScrollView, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const BookConsultationScreen = () => {
@@ -161,132 +592,259 @@ const BookConsultationScreen = () => {
   const [showTimePicker, setShowTimePicker] = useState(false);
 
   const handleBook = () => {
-    // handle booking logic here
     console.log('Booking Submitted!');
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>Book Consultation</Text>
+    <View style={styles.pageContainer}>
+      {/* Scrollable Form */}
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={true}
+      >
+        <View style={styles.formCard}>
 
-      {/* Doctor Info (Static Example) */}
-      <View style={styles.card}>
-        <Text style={styles.label}>Doctor: Dr. Priya Sharma</Text>
-        <Text style={styles.label}>Speciality: Cardiologist</Text>
-        <Text style={styles.label}>Clinic: ABC Hospital</Text>
-      </View>
+          <Text style={styles.heading}>Book Consultation</Text>
 
-      <Text style={styles.section}>Patient Information</Text>
+          {/* Doctor Info */}
+          <View style={styles.doctorCard}>
+            <Text style={styles.doctorText}>👨‍⚕️ Doctor: <Text style={styles.bold}>Dr. Priya Sharma</Text></Text>
+            <Text style={styles.doctorText}>📌 Speciality: Cardiologist</Text>
+            <Text style={styles.doctorText}>🏥 Clinic: ABC Hospital</Text>
+          </View>
 
-      <TextInput style={styles.input} placeholder="Patient Name" value={patientName} onChangeText={setPatientName} />
-      <TextInput style={styles.input} placeholder="Age" keyboardType="numeric" value={age} onChangeText={setAge} />
-      <TextInput style={styles.input} placeholder="Gender" value={gender} onChangeText={setGender} />
-      <TextInput style={styles.input} placeholder="Relation to Elder" value={relation} onChangeText={setRelation} />
+          {/* Section Title */}
+          <Text style={styles.section}>Patient Information</Text>
 
-      <Text style={styles.section}>Consultation Details</Text>
+          {/* Inputs */}
+          <TextInput
+            style={styles.input}
+            placeholder="Patient Name"
+            value={patientName}
+            onChangeText={setPatientName}
+          />
 
-      <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.dateButton}>Select Date: {date.toDateString()}</Text>
-      </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) setDate(selectedDate);
-          }}
-        />
-      )}
+          <TextInput
+            style={styles.input}
+            placeholder="Age"
+            keyboardType="numeric"
+            value={age}
+            onChangeText={setAge}
+          />
 
-      <TouchableOpacity onPress={() => setShowTimePicker(true)}>
-        <Text style={styles.dateButton}>Select Time: {time.toLocaleTimeString()}</Text>
-      </TouchableOpacity>
-      {showTimePicker && (
-        <DateTimePicker
-          value={time}
-          mode="time"
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          onChange={(event, selectedTime) => {
-            setShowTimePicker(false);
-            if (selectedTime) setTime(selectedTime);
-          }}
-        />
-      )}
+          <TextInput
+            style={styles.input}
+            placeholder="Gender"
+            value={gender}
+            onChangeText={setGender}
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Type of Consultation (Online / In-person)"
-        value={consultationType}
-        onChangeText={setConsultationType}
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Relation to Elder"
+            value={relation}
+            onChangeText={setRelation}
+          />
 
-      <TextInput
-        style={[styles.input, { height: 100 }]}
-        placeholder="Symptoms / Health Concern"
-        multiline
-        value={symptoms}
-        onChangeText={setSymptoms}
-      />
+          {/* Consultation Section */}
+          <Text style={styles.section}>Consultation Details</Text>
 
-      <TextInput
-        style={[styles.input, { height: 80 }]}
-        placeholder="Message to Doctor (Optional)"
-        multiline
-        value={notes}
-        onChangeText={setNotes}
-      />
+          {/* Date Picker */}
+          <TouchableOpacity
+            style={styles.selector}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Text style={styles.selectorText}>📅 Select Date: {date.toDateString()}</Text>
+          </TouchableOpacity>
 
-      <Text style={styles.section}>Contact Info</Text>
+          {showDatePicker && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+              onChange={(event, selectedDate) => {
+                setShowDatePicker(false);
+                if (selectedDate) setDate(selectedDate);
+              }}
+            />
+          )}
 
-      <TextInput style={styles.input} placeholder="Mobile Number" keyboardType="phone-pad" value={mobile} onChangeText={setMobile} />
-      <TextInput style={styles.input} placeholder="Email (optional)" keyboardType="email-address" value={email} onChangeText={setEmail} />
+          {/* Time Picker */}
+          <TouchableOpacity
+            style={styles.selector}
+            onPress={() => setShowTimePicker(true)}
+          >
+            <Text style={styles.selectorText}>
+              ⏰ Select Time: {time.toLocaleTimeString()}
+            </Text>
+          </TouchableOpacity>
 
-      <Button title="Book Consultation" onPress={handleBook} color="#007AFF" />
-    </ScrollView>
+          {showTimePicker && (
+            <DateTimePicker
+              value={time}
+              mode="time"
+              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+              onChange={(event, selectedTime) => {
+                setShowTimePicker(false);
+                if (selectedTime) setTime(selectedTime);
+              }}
+            />
+          )}
+
+          <TextInput
+            style={styles.input}
+            placeholder="Consultation Type (Online / In-person)"
+            value={consultationType}
+            onChangeText={setConsultationType}
+          />
+
+          <TextInput
+            style={[styles.input, styles.textArea]}
+            placeholder="Symptoms / Health Concern"
+            multiline
+            value={symptoms}
+            onChangeText={setSymptoms}
+          />
+
+          <TextInput
+            style={[styles.input, styles.textAreaSmall]}
+            placeholder="Message to Doctor (Optional)"
+            multiline
+            value={notes}
+            onChangeText={setNotes}
+          />
+
+          {/* Contact Section */}
+          <Text style={styles.section}>Contact Info</Text>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Mobile Number"
+            keyboardType="phone-pad"
+            value={mobile}
+            onChangeText={setMobile}
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Email (Optional)"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
+
+          {/* Submit Button */}
+          <TouchableOpacity style={styles.bookBtn} onPress={handleBook}>
+            <Text style={styles.bookText}>Confirm Booking</Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
+export default BookConsultationScreen;
+
+/* ----------------------- STYLES ----------------------- */
+
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
+    flex: 1,
+    backgroundColor: "#F3F4F6",
+  },
+
+  scrollContainer: {
     padding: 20,
-    paddingBottom: 40,
-    backgroundColor: '#f9f9f9',
+    alignItems: "center",
   },
+
+  formCard: {
+    width: "100%",
+    maxWidth: 650,
+    backgroundColor: "#FFFFFF",
+    padding: 20,
+    borderRadius: 14,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+  },
+
   heading: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    fontSize: 26,
+    fontWeight: "bold",
+    marginBottom: 15,
+    textAlign: "center",
+    color: "#333",
   },
-  section: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 20,
-    marginBottom: 5,
-  },
-  card: {
-    backgroundColor: '#e0f7fa',
+
+  doctorCard: {
+    backgroundColor: "#E0F7FA",
     padding: 15,
     borderRadius: 10,
     marginBottom: 15,
   },
-  label: {
+
+  doctorText: {
     fontSize: 16,
-    marginBottom: 3,
+    color: "#333",
   },
+
+  bold: {
+    fontWeight: "700",
+  },
+
+  section: {
+    fontSize: 20,
+    fontWeight: "600",
+    marginTop: 20,
+    marginBottom: 10,
+  },
+
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: "#FAFAFA",
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#DDD",
+    fontSize: 16,
     marginBottom: 12,
   },
-  dateButton: {
-    color: '#007AFF',
-    marginBottom: 10,
+
+  textArea: {
+    height: 100,
+    textAlignVertical: "top",
+  },
+
+  textAreaSmall: {
+    height: 80,
+    textAlignVertical: "top",
+  },
+
+  selector: {
+    backgroundColor: "#E8F0FE",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+
+  selectorText: {
+    fontSize: 16,
+    color: "#1A73E8",
+  },
+
+  bookBtn: {
+    marginTop: 20,
+    backgroundColor: "#1A73E8",
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+
+  bookText: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
-
-export default BookConsultationScreen;

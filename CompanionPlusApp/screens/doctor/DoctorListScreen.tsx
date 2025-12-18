@@ -120,7 +120,14 @@ export default DoctorListScreen;
 */
 
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 type Doctor = {
@@ -132,7 +139,6 @@ type Doctor = {
   location: string;
   rating: number;
   consultationFee: number;
-  // use require(...) for local images
 };
 
 const doctors: Doctor[] = [
@@ -146,37 +152,18 @@ const doctors: Doctor[] = [
     rating: 4.7,
     consultationFee: 400,
   },
+  
   {
-    doctorId: 'doc2',
-    name: 'Dr. Rajesh Iyer',
-    specialization: 'Cardiologist',
-    experience: '15 years',
-    qualification: 'MBBS, DM',
-    location: 'Coimbatore',
-    rating: 4.9,
-    consultationFee: 600,
-  },
-  {
-    doctorId: 'doc2',
+    doctorId: 'doc3',
     name: 'Dr. Arjun',
     specialization: 'Cardiologist',
-    experience: '15 years',
+    experience: '12 years',
     qualification: 'MBBS, DM',
     location: 'Coimbatore',
-    rating: 4.9,
-    consultationFee: 600,
+    rating: 4.8,
+    consultationFee: 550,
   },
-  {
-    doctorId: 'doc2',
-    name: 'Dr. Vijay',
-    specialization: 'Cardiologist',
-    experience: '15 years',
-    qualification: 'MBBS, DM',
-    location: 'Coimbatore',
-    rating: 4.9,
-    consultationFee: 600,
-  },
-  // Add more static doctors here
+  
 ];
 
 const DoctorListScreen = () => {
@@ -185,21 +172,47 @@ const DoctorListScreen = () => {
   const renderDoctorCard = ({ item }: { item: Doctor }) => (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate('BookConsultation', { doctorId: item.doctorId })}
+      activeOpacity={0.8}
+      onPress={() =>
+        navigation.navigate('BookConsultationScreen', { doctorId: item.doctorId })
+      }
     >
-     
+      {/* Doctor Image */}
+      <Image
+        source={{ uri: 'https://i.pravatar.cc/150?img=5' }}
+        style={styles.image}
+      />
+
       <View style={styles.info}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.specialization}>{item.specialization}</Text>
+
         <Text style={styles.details}>
-          {item.experience} | {item.qualification}
+          🎓 {item.qualification}
         </Text>
+
         <Text style={styles.details}>
-          Location: {item.location}
+          🧑‍⚕️ {item.experience} Experience
         </Text>
+
         <Text style={styles.details}>
-          Rating: ⭐ {item.rating} | ₹{item.consultationFee}
+          📍 {item.location}
         </Text>
+
+        <Text style={styles.rating}>
+          ⭐ {item.rating}  
+          <Text style={styles.fee}>   ₹{item.consultationFee}</Text>
+        </Text>
+
+        {/* Book Button */}
+        <TouchableOpacity
+          style={styles.bookButton}
+          onPress={() =>
+            navigation.navigate('BookConsultationScreen', { doctorId: item.doctorId })
+          }
+        >
+          <Text style={styles.bookText}>Book Appointment</Text>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -207,11 +220,13 @@ const DoctorListScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Available Doctors</Text>
+
       <FlatList
         data={doctors}
         keyExtractor={(item) => item.doctorId}
         renderItem={renderDoctorCard}
         contentContainerStyle={styles.list}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -222,46 +237,76 @@ export default DoctorListScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    padding: 18,
+    backgroundColor: '#F3F4F6',
   },
   title: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 18,
+    color: '#111827',
   },
   list: {
-    paddingBottom: 16,
+    paddingBottom: 20,
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: '#f2f2f2',
-    borderRadius: 12,
-    marginBottom: 16,
-    padding: 12,
-    elevation: 3,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 18,
+    marginBottom: 20,
+    padding: 16,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginRight: 12,
+    width: 85,
+    height: 85,
+    borderRadius: 50,
+    marginRight: 16,
+    backgroundColor: '#E5E7EB',
   },
   info: {
     flex: 1,
-    justifyContent: 'center',
   },
   name: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#1F2937',
   },
   specialization: {
     fontSize: 16,
-    color: '#666',
+    color: '#4B5563',
+    marginBottom: 6,
   },
   details: {
     fontSize: 14,
-    color: '#333',
+    color: '#374151',
     marginTop: 2,
+  },
+  rating: {
+    marginTop: 6,
+    fontSize: 15,
+    color: '#111827',
+    fontWeight: '600',
+  },
+  fee: {
+    color: '#10B981',
+    fontWeight: 'bold',
+  },
+  bookButton: {
+    marginTop: 10,
+    backgroundColor: '#2563EB',
+    paddingVertical: 8,
+    borderRadius: 8,
+    alignItems: 'center',
+    width: 150,
+  },
+  bookText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
 });

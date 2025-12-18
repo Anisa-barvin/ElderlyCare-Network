@@ -2,50 +2,74 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row', // Sidebar + Content
-    backgroundColor: '#F9FAFB',
+    padding: 20,
+    backgroundColor: '#f5f5f5',
   },
-  sidebar: {
-    width: 220,
-    backgroundColor: '#1F2937',
-    padding: 15,
+
+  // Navbar styles
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#4B7BEC',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginBottom: 20,
   },
-  sidebarHeader: {
-    fontSize: 20,
+  navbarTitle: {
+    color: '#fff',
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+  },
+  navbarButton: {
+    color: '#fff',
+    fontSize: 22,
+  },
+
+  // Page Header
+  header: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
     marginBottom: 20,
     textAlign: 'center',
   },
-  sidebarButton: {
+
+  // Button container
+  buttonContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  buttonSpacing: {
+    width: '48%',
+    marginBottom: 15,
+  },
+
+  // Button style
+  button: {
+    backgroundColor: '#4B7BEC',
     paddingVertical: 12,
     paddingHorizontal: 10,
-    backgroundColor: '#374151',
     borderRadius: 8,
-    marginBottom: 12,
-  },
-  sidebarButtonText: {
-    fontSize: 16,
-    color: '#E5E7EB',
-    fontWeight: '500',
-  },
-  mainContent: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
     alignItems: 'center',
   },
-  header: {
-    fontSize: 28,
+  buttonText: {
+    color: '#fff',
     fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#111827',
+    fontSize: 16,
   },
-  subtitle: {
-    fontSize: 18,
-    color: '#4B5563',
-    textAlign: 'center',
+
+  // Press feedback (hover effect alternative)
+  buttonPressed: {
+    backgroundColor: '#355FC1',
   },
 });
 

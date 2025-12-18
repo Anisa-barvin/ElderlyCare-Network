@@ -1,25 +1,43 @@
-// utils/storage.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
+const TOKEN_KEY = 'token';
+
+/* ================= SAVE TOKEN ================= */
 export const saveToken = async (token: string) => {
   try {
-    await AsyncStorage.setItem('token', token); // Save the token
+    if (Platform.OS === 'web') {
+      localStorage.setItem(TOKEN_KEY, token);
+    } else {
+      await AsyncStorage.setItem(TOKEN_KEY, token);
+    }
   } catch (error) {
     console.error('Error saving token:', error);
   }
 };
 
-export const getToken = async () => {
+/* ================= GET TOKEN ================= */
+export const getToken = async (): Promise<string | null> => {
   try {
-    return await AsyncStorage.getItem('token'); // Get the saved token
+    if (Platform.OS === 'web') {
+      return localStorage.getItem(TOKEN_KEY);
+    } else {
+      return await AsyncStorage.getItem(TOKEN_KEY);
+    }
   } catch (error) {
     console.error('Error retrieving token:', error);
+    return null;
   }
 };
 
+/* ================= REMOVE TOKEN ================= */
 export const removeToken = async () => {
   try {
-    await AsyncStorage.removeItem('token'); // Remove the token on logout
+    if (Platform.OS === 'web') {
+      localStorage.removeItem(TOKEN_KEY);
+    } else {
+      await AsyncStorage.removeItem(TOKEN_KEY);
+    }
   } catch (error) {
     console.error('Error removing token:', error);
   }

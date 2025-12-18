@@ -1,49 +1,78 @@
-// controllers/elderController.js
+// // controllers/elderController.js
 
-const Elder = require('../models/Elder');
+// const Elder = require('../models/Elder');
 
-// Register Elder
-const registerElder = async (req, res) => {
+// // Register Elder
+// const registerElder = async (req, res) => {
+//   try {
+//     const { fullName, email, password } = req.body;
+
+//     // Check if the elder already exists
+//     let elder = await Elder.findOne({ email });
+//     if (elder) {
+//       return res.status(400).json({ msg: 'Elder already exists' });
+//     }
+
+//     elder = new Elder({ fullName, email, password });
+
+//     // Save elder to the database
+//     await elder.save();
+//     res.status(201).json({ msg: 'Elder registered successfully' });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).json({ msg: 'Server Error' });
+//   }
+// };
+
+// // Login Elder
+// const loginElder = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+
+//     let elder = await Elder.findOne({ email });
+//     if (!elder) {
+//       return res.status(400).json({ msg: 'Invalid credentials' });
+//     }
+
+//     // Here, you would compare the password (using bcrypt, etc.)
+//     if (elder.password !== password) {
+//       return res.status(400).json({ msg: 'Invalid credentials' });
+//     }
+
+//     res.status(200).json({ msg: 'Login successful' });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).json({ msg: 'Server Error' });
+//   }
+// };
+
+// module.exports = { registerElder, loginElder };
+
+
+const User = require("../models/User");
+
+exports.getElderProfile = async (req, res) => {
   try {
-    const { fullName, email, password } = req.body;
+    const user = await User.findById(req.user.id).select("-password");
 
-    // Check if the elder already exists
-    let elder = await Elder.findOne({ email });
-    if (elder) {
-      return res.status(400).json({ msg: 'Elder already exists' });
-    }
+    if (!user) return res.status(404).json({ message: "Elder not found" });
 
-    elder = new Elder({ fullName, email, password });
+    res.json(user);
 
-    // Save elder to the database
-    await elder.save();
-    res.status(201).json({ msg: 'Elder registered successfully' });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ msg: 'Server Error' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Login Elder
-const loginElder = async (req, res) => {
+exports.updateElderProfile = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const updated = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true,
+    }).select("-password");
 
-    let elder = await Elder.findOne({ email });
-    if (!elder) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
-    }
+    res.json(updated);
 
-    // Here, you would compare the password (using bcrypt, etc.)
-    if (elder.password !== password) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
-    }
-
-    res.status(200).json({ msg: 'Login successful' });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ msg: 'Server Error' });
+    res.status(500).json({ message: err.message });
   }
 };
-
-module.exports = { registerElder, loginElder };
