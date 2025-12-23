@@ -1,10 +1,10 @@
-type Remainder = {
-  _id: string;   // 🔥 MongoDB ID
-  time: string;
-  message: string;
-  completed?: boolean;
+type Reminder = {
+  _id: string;
+  title: string;
+  description: string;
+  datetime: string;
+  completed: boolean;
 };
-
 
 import React, { useState, useCallback, useEffect } from 'react';
 import {
@@ -25,6 +25,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../utils/api';
 import { useNavigation } from '@react-navigation/native';
+import { Pressable } from "react-native";
 
 
 
@@ -34,13 +35,6 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 }
 
 /* ================= TYPES ================= */
-type Reminder = {
-  _id: string;
-  title: string;
-  description: string;
-  datetime: string;
-  completed: boolean;
-};
 
 const RemindersListScreen = () => {
   const navigation = useNavigation();
@@ -113,32 +107,17 @@ const RemindersListScreen = () => {
   };
 
   /* ================= DELETE ================= */
-const confirmDelete = (id: string) => {
-  Alert.alert("Delete reminder?", "Are you sure?", [
-    { text: "Cancel", style: "cancel" },
-    {
-      text: "Delete",
-      style: "destructive",
-      onPress: async () => {
-        try {
-          const token = await AsyncStorage.getItem("token");
+const confirmDelete = async (id: string) => {
+  const token = await AsyncStorage.getItem("token");
 
-          await api.delete(`/reminders/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
+  await api.delete(`/reminders/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
-          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-
-          // ✅ ALWAYS re-fetch from DB
-          fetchReminders();
-
-        } catch (error) {
-          Alert.alert("Error", "Failed to delete reminder");
-        }
-      },
-    },
-  ]);
+  setReminders(prev => prev.filter(r => r._id !== id));
 };
+
+
 
 useEffect(() => {
   const unsubscribe = navigation.addListener("focus", fetchReminders);
@@ -253,7 +232,7 @@ export default RemindersListScreen;
 
 /* ================= STYLES ================= */
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F4F6F8' },
+  container: { flex: 1, backgroundColor: '#b1c9e1ff' },
   headerRow: { padding: 20 },
   heading: { fontSize: 24, fontWeight: '700' },
 
@@ -317,3 +296,4 @@ const styles = StyleSheet.create({
   },
   modalSaveText: { color: '#fff', fontWeight: '700' },
 });
+

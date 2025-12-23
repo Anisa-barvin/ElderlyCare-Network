@@ -1,88 +1,8 @@
-// import React from 'react';
-// import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
-// import { StackNavigationProp } from '@react-navigation/stack';
-// import { RootStackParamList } from '../../navigation/RootNavigator';
-
-// type ChatListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ChatListScreen'>;
-
-// const ChatListScreen = () => {
-//   const navigation = useNavigation<ChatListScreenNavigationProp>();
-
-//   const chats = [
-//     { id: '1', name: 'Caregiver: John Doe', lastMessage: 'How are you feeling today?' },
-//     { id: '2', name: 'Family Member: Sarah', lastMessage: 'Did you take your medicine?' },
-//     { id: '3', name: 'Caregiver: Emma', lastMessage: 'Your next appointment is on Thursday.' },
-//   ];
-
-//   const handleChatPress = (chatId: string, chatName: string) => {
-//     navigation.navigate('ChatRoomScreen', { chatId, chatName });
-//   };
-
-//   const renderItem = ({ item }: { item: { id: string, name: string, lastMessage: string } }) => (
-//     <TouchableOpacity style={styles.chatItem} onPress={() => handleChatPress(item.id, item.name)}>
-//       <Text style={styles.chatName}>{item.name}</Text>
-//       <Text style={styles.lastMessage}>{item.lastMessage}</Text>
-//     </TouchableOpacity>
-//   );
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Chat List</Text>
-//       <FlatList
-//         data={chats}
-//         renderItem={renderItem}
-//         keyExtractor={(item) => item.id}
-//       />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 16,
-//     backgroundColor: '#f2f2f2',
-//   },
-//   title: {
-//     fontSize: 24,
-//     fontWeight: 'bold',
-//     color: '#4CAF50',
-//     marginBottom: 20,
-//   },
-//   chatItem: {
-//     backgroundColor: '#fff',
-//     padding: 16,
-//     borderRadius: 8,
-//     marginBottom: 12,
-//     shadowColor: '#000',
-//     shadowOpacity: 0.1,
-//     shadowRadius: 5,
-//     elevation: 2,
-//   },
-//   chatName: {
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     color: '#333',
-//   },
-//   lastMessage: {
-//     fontSize: 14,
-//     color: '#777',
-//     marginTop: 4,
-//   },
-// });
-
-// export default ChatListScreen;
 
 
 
 
-
-
-
-
-// // Path: CompanionPlusApp/screens/chat/ChatListScreen.tsx
-// import React, { useState, useMemo, useCallback } from 'react';
+// import React, { useEffect, useState, useMemo, useCallback } from 'react';
 // import {
 //   View,
 //   Text,
@@ -95,79 +15,85 @@
 // } from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
 // import { StackNavigationProp } from '@react-navigation/stack';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import api from '../../utils/api';
 // import { RootStackParamList } from '../../navigation/RootNavigator';
 
-// type ChatListScreenNavigationProp = StackNavigationProp<
+// type NavigationProp = StackNavigationProp<
 //   RootStackParamList,
 //   'ChatListScreen'
 // >;
 
 // type ChatItem = {
-//   id: string;
+//   _id: string;
 //   name: string;
-//   lastMessage: string;
-//   time?: string; // e.g. "2h", "Yesterday", "10:30"
+//   lastMessage?: string;
+//   time?: string;
 //   unreadCount?: number;
 //   online?: boolean;
 // };
 
-
-// const initialChats: ChatItem[] = [
-//   {
-//     id: '1',
-//     name: 'John Doe (Caregiver)',
-//     lastMessage: 'How are you feeling today?',
-//     time: '2h',
-//     unreadCount: 1,
-//     online: true,
-//   },
- 
-//   {
-//     id: '3',
-//     name: 'Emma (Caregiver)',
-//     lastMessage: 'Your next appointment is on Thursday.',
-//     time: '10:30',
-//     unreadCount: 3,
-//     online: true,
-//   },
- 
-// ];
-
 // const ChatListScreen: React.FC = () => {
-//   const navigation = useNavigation<ChatListScreenNavigationProp>();
-//   const [chats, setChats] = useState<ChatItem[]>(initialChats);
+//   const navigation = useNavigation<NavigationProp>();
+
+//   const [chats, setChats] = useState<ChatItem[]>([]);
 //   const [query, setQuery] = useState('');
 //   const [refreshing, setRefreshing] = useState(false);
 
-//   // Filtered list (memoized)
-//   const filtered = useMemo(() => {
+//   /* ================= FETCH ELDERS ================= */
+//   const loadChats = async () => {
+//     try {
+//       const token = await AsyncStorage.getItem('token');
+
+//       const res = await api.get('/users/elders', {
+//         headers: { Authorization: `Bearer ${token}` },
+//       });
+
+//       const formatted = res.data.map((u: any) => ({
+//         _id: u._id,
+//         name: u.name,
+//         lastMessage: 'Tap to start chatting',
+//         time: '',
+//         unreadCount: 0,
+//         online: true,
+//       }));
+
+//       setChats(formatted);
+//     } catch (error) {
+//       console.log('CHAT LIST ERROR:', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     loadChats();
+//   }, []);
+
+//   /* ================= SEARCH ================= */
+//   const filteredChats = useMemo(() => {
 //     if (!query.trim()) return chats;
 //     const q = query.toLowerCase();
 //     return chats.filter(
 //       (c) =>
 //         c.name.toLowerCase().includes(q) ||
-//         c.lastMessage.toLowerCase().includes(q)
+//         c.lastMessage?.toLowerCase().includes(q)
 //     );
 //   }, [chats, query]);
 
+//   /* ================= REFRESH ================= */
 //   const onRefresh = useCallback(() => {
 //     setRefreshing(true);
-//     // simulate network refresh - in real app fetch from server
-//     setTimeout(() => {
-//       // For demo, toggle unread for first item
-//       setChats((prev) =>
-//         prev.map((c, i) =>
-//           i === 0 ? { ...c, lastMessage: 'Refreshed — hello!', time: 'Now' } : c
-//         )
-//       );
-//       setRefreshing(false);
-//     }, 1000);
+//     loadChats().finally(() => setRefreshing(false));
 //   }, []);
 
-//   const handleChatPress = (chatId: string, chatName: string) => {
-//     navigation.navigate('ChatRoomScreen', { chatId, chatName } as never);
+//   /* ================= NAVIGATION ================= */
+//   const handleChatPress = (userId: string, name: string) => {
+//     navigation.navigate('ChatRoomScreen', {
+//       chatId: userId,
+//       chatName: name,
+//     });
 //   };
 
+//   /* ================= RENDER ITEM ================= */
 //   const renderItem = ({ item }: { item: ChatItem }) => {
 //     const initials = item.name
 //       .split(' ')
@@ -179,10 +105,10 @@
 //     return (
 //       <TouchableOpacity
 //         style={styles.chatItem}
-//         activeOpacity={0.7}
-//         onPress={() => handleChatPress(item.id, item.name)}
+//         activeOpacity={0.75}
+//         onPress={() => handleChatPress(item._id, item.name)}
 //       >
-//         {/* Avatar + online */}
+//         {/* Avatar */}
 //         <View style={styles.leftColumn}>
 //           <View style={styles.avatarContainer}>
 //             <View style={styles.avatar}>
@@ -192,7 +118,7 @@
 //           </View>
 //         </View>
 
-//         {/* Middle: name + last message */}
+//         {/* Info */}
 //         <View style={styles.midColumn}>
 //           <Text style={styles.chatName} numberOfLines={1}>
 //             {item.name}
@@ -202,14 +128,12 @@
 //           </Text>
 //         </View>
 
-//         {/* Right: time + unread */}
+//         {/* Right */}
 //         <View style={styles.rightColumn}>
-//           <Text style={styles.timeText}>{item.time || ''}</Text>
+//           <Text style={styles.timeText}>{item.time}</Text>
 //           {item.unreadCount ? (
 //             <View style={styles.unreadBadge}>
-//               <Text style={styles.unreadText}>
-//                 {item.unreadCount > 9 ? '9+' : item.unreadCount}
-//               </Text>
+//               <Text style={styles.unreadText}>{item.unreadCount}</Text>
 //             </View>
 //           ) : null}
 //         </View>
@@ -219,26 +143,15 @@
 
 //   return (
 //     <View style={styles.container}>
-//       {/* Header */}
+//       {/* HEADER */}
 //       <View style={styles.header}>
 //         <Text style={styles.title}>Messages</Text>
-//         <TouchableOpacity
-//           style={styles.newBtn}
-//           onPress={() => {
-//             // example action: open new chat or contact list
-//             // navigation.navigate('NewChat' as never);
-//             // for now just console
-//             console.log('New chat tapped');
-//           }}
-//         >
-//           <Text style={styles.newBtnText}>+ New</Text>
-//         </TouchableOpacity>
 //       </View>
 
-//       {/* Search */}
+//       {/* SEARCH */}
 //       <View style={styles.searchContainer}>
 //         <TextInput
-//           placeholder="Search chats or messages..."
+//           placeholder="Search elders..."
 //           placeholderTextColor="#9CA3AF"
 //           value={query}
 //           onChangeText={setQuery}
@@ -246,31 +159,21 @@
 //         />
 //       </View>
 
-//       {/* List */}
+//       {/* LIST */}
 //       <FlatList
-//         data={filtered}
-//         keyExtractor={(item) => item.id}
+//         data={filteredChats}
+//         keyExtractor={(item) => item._id}
 //         renderItem={renderItem}
-//         ItemSeparatorComponent={() => <View style={styles.separator} />}
 //         refreshControl={
 //           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 //         }
 //         ListEmptyComponent={
 //           <View style={styles.empty}>
-//             <Text style={styles.emptyTitle}>No conversations</Text>
+//             <Text style={styles.emptyTitle}>No Elders Found</Text>
 //             <Text style={styles.emptySub}>
-//               Try starting a new conversation or adjust your search.
+//               Start a conversation with another elder.
 //             </Text>
-//             <TouchableOpacity
-//               style={styles.emptyBtn}
-//               onPress={() => console.log('Start new chat')}
-//             >
-//               <Text style={styles.emptyBtnText}>Start Chat</Text>
-//             </TouchableOpacity>
 //           </View>
-//         }
-//         contentContainerStyle={
-//           filtered.length === 0 ? { flex: 1, justifyContent: 'center' } : {}
 //         }
 //       />
 //     </View>
@@ -283,26 +186,23 @@
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
-//     backgroundColor: '#F3F4F6',
+//     backgroundColor: '#b1c9e1ff',
 //     paddingHorizontal: 12,
 //     paddingTop: Platform.OS === 'web' ? 20 : 8,
 //   },
 
 //   header: {
 //     flexDirection: 'row',
-//     alignItems: 'center',
 //     justifyContent: 'space-between',
 //     marginBottom: 12,
-//     paddingHorizontal: 6,
 //   },
 //   title: {
 //     fontSize: 22,
 //     fontWeight: '700',
-//     color: '#111827',
 //   },
 //   newBtn: {
 //     backgroundColor: '#10B981',
-//     paddingHorizontal: 12,
+//     paddingHorizontal: 14,
 //     paddingVertical: 6,
 //     borderRadius: 8,
 //   },
@@ -312,45 +212,26 @@
 //   },
 
 //   searchContainer: {
-//     paddingHorizontal: 6,
 //     marginBottom: 10,
 //   },
 //   searchInput: {
 //     backgroundColor: '#fff',
 //     borderRadius: 10,
-//     paddingVertical: Platform.OS === 'web' ? 10 : 8,
-//     paddingHorizontal: 14,
+//     padding: 10,
 //     borderWidth: 1,
 //     borderColor: '#E5E7EB',
-//     fontSize: 15,
-//     color: '#111827',
 //   },
 
 //   chatItem: {
 //     flexDirection: 'row',
-//     alignItems: 'center',
-//     paddingVertical: 14,
-//     paddingHorizontal: 6,
 //     backgroundColor: '#fff',
-//     borderRadius: 12,
+//     borderRadius: 14,
+//     paddingVertical: 14,
 //     marginVertical: 6,
-//     marginHorizontal: 6,
-//     // shadow for mobile
-//     shadowColor: '#000',
-//     shadowOpacity: 0.06,
-//     shadowRadius: 6,
-//     shadowOffset: { width: 0, height: 2 },
 //     elevation: 2,
 //   },
 
-//   leftColumn: {
-//     width: 64,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   avatarContainer: {
-//     position: 'relative',
-//   },
+//   leftColumn: { width: 70, alignItems: 'center' },
 //   avatar: {
 //     width: 52,
 //     height: 52,
@@ -360,95 +241,39 @@
 //     justifyContent: 'center',
 //   },
 //   avatarText: {
-//     fontSize: 18,
 //     fontWeight: '700',
-//     color: '#374151',
+//     fontSize: 18,
 //   },
 //   onlineDot: {
 //     position: 'absolute',
-//     right: -2,
-//     bottom: -2,
+//     bottom: 2,
+//     right: 2,
 //     width: 12,
 //     height: 12,
-//     borderRadius: 6,
 //     backgroundColor: '#10B981',
+//     borderRadius: 6,
 //     borderWidth: 2,
 //     borderColor: '#fff',
 //   },
 
-//   midColumn: {
-//     flex: 1,
-//     paddingHorizontal: 12,
-//     justifyContent: 'center',
-//   },
-//   chatName: {
-//     fontSize: 16,
-//     fontWeight: '700',
-//     color: '#111827',
-//   },
-//   lastMessage: {
-//     fontSize: 13,
-//     color: '#6B7280',
-//     marginTop: 4,
-//   },
+//   midColumn: { flex: 1, paddingHorizontal: 10 },
+//   chatName: { fontSize: 16, fontWeight: '700' },
+//   lastMessage: { fontSize: 13, color: '#6B7280', marginTop: 4 },
 
-//   rightColumn: {
-//     width: 72,
-//     alignItems: 'flex-end',
-//     paddingRight: 4,
-//   },
-//   timeText: {
-//     fontSize: 12,
-//     color: '#9CA3AF',
-//   },
+//   rightColumn: { width: 60, alignItems: 'flex-end' },
+//   timeText: { fontSize: 12, color: '#9CA3AF' },
 //   unreadBadge: {
-//     marginTop: 8,
+//     marginTop: 6,
 //     backgroundColor: '#EF4444',
-//     minWidth: 22,
-//     height: 22,
-//     borderRadius: 11,
-//     alignItems: 'center',
-//     justifyContent: 'center',
+//     borderRadius: 10,
 //     paddingHorizontal: 6,
 //   },
-//   unreadText: {
-//     color: '#fff',
-//     fontSize: 12,
-//     fontWeight: '700',
-//   },
+//   unreadText: { color: '#fff', fontSize: 12 },
 
-//   separator: {
-//     height: 6,
-//   },
-
-//   empty: {
-//     alignItems: 'center',
-//     paddingHorizontal: 40,
-//   },
-//   emptyTitle: {
-//     fontSize: 18,
-//     fontWeight: '700',
-//     color: '#111827',
-//     marginBottom: 8,
-//   },
-//   emptySub: {
-//     fontSize: 14,
-//     color: '#6B7280',
-//     textAlign: 'center',
-//     marginBottom: 16,
-//   },
-//   emptyBtn: {
-//     backgroundColor: '#10B981',
-//     paddingVertical: 10,
-//     paddingHorizontal: 20,
-//     borderRadius: 8,
-//   },
-//   emptyBtnText: {
-//     color: '#fff',
-//     fontWeight: '700',
-//   },
+//   empty: { alignItems: 'center', marginTop: 40 },
+//   emptyTitle: { fontSize: 18, fontWeight: '700' },
+//   emptySub: { fontSize: 14, color: '#6B7280', marginTop: 6 },
 // });
-
 
 
 
@@ -554,22 +379,18 @@ const ChatListScreen: React.FC = () => {
 
     return (
       <TouchableOpacity
-        style={styles.chatItem}
-        activeOpacity={0.75}
+        style={styles.chatCard}
+        activeOpacity={0.85}
         onPress={() => handleChatPress(item._id, item.name)}
       >
         {/* Avatar */}
-        <View style={styles.leftColumn}>
-          <View style={styles.avatarContainer}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>{initials}</Text>
-            </View>
-            {item.online && <View style={styles.onlineDot} />}
-          </View>
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{initials}</Text>
+          {item.online && <View style={styles.onlineDot} />}
         </View>
 
         {/* Info */}
-        <View style={styles.midColumn}>
+        <View style={styles.chatInfo}>
           <Text style={styles.chatName} numberOfLines={1}>
             {item.name}
           </Text>
@@ -579,8 +400,8 @@ const ChatListScreen: React.FC = () => {
         </View>
 
         {/* Right */}
-        <View style={styles.rightColumn}>
-          <Text style={styles.timeText}>{item.time}</Text>
+        <View style={styles.rightInfo}>
+          {item.time ? <Text style={styles.time}>{item.time}</Text> : null}
           {item.unreadCount ? (
             <View style={styles.unreadBadge}>
               <Text style={styles.unreadText}>{item.unreadCount}</Text>
@@ -595,14 +416,11 @@ const ChatListScreen: React.FC = () => {
     <View style={styles.container}>
       {/* HEADER */}
       <View style={styles.header}>
-        <Text style={styles.title}>Messages</Text>
-        <TouchableOpacity style={styles.newBtn}>
-          <Text style={styles.newBtnText}>+ New</Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>Chats</Text>
       </View>
 
       {/* SEARCH */}
-      <View style={styles.searchContainer}>
+      <View style={styles.searchBox}>
         <TextInput
           placeholder="Search elders..."
           placeholderTextColor="#9CA3AF"
@@ -622,9 +440,9 @@ const ChatListScreen: React.FC = () => {
         }
         ListEmptyComponent={
           <View style={styles.empty}>
-            <Text style={styles.emptyTitle}>No Elders Found</Text>
+            <Text style={styles.emptyTitle}>No Chats Yet</Text>
             <Text style={styles.emptySub}>
-              Start a conversation with another elder.
+              Start chatting with another elder
             </Text>
           </View>
         }
@@ -636,66 +454,59 @@ const ChatListScreen: React.FC = () => {
 export default ChatListScreen;
 
 /* ================= STYLES ================= */
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F3F4F6',
-    paddingHorizontal: 12,
-    paddingTop: Platform.OS === 'web' ? 20 : 8,
+    backgroundColor: '#b1c9e1ff',
+    paddingHorizontal: 14,
+    paddingTop: Platform.OS === 'web' ? 20 : 10,
   },
 
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 12,
   },
   title: {
-    fontSize: 22,
-    fontWeight: '700',
-  },
-  newBtn: {
-    backgroundColor: '#10B981',
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 8,
-  },
-  newBtnText: {
-    color: '#fff',
-    fontWeight: '700',
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#1E3A8A',
   },
 
-  searchContainer: {
-    marginBottom: 10,
+  searchBox: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginBottom: 12,
+    elevation: 3,
   },
   searchInput: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
+    fontSize: 16,
   },
 
-  chatItem: {
+  chatCard: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderRadius: 14,
-    paddingVertical: 14,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 18,
+    padding: 14,
     marginVertical: 6,
-    elevation: 2,
+    alignItems: 'center',
+    elevation: 3,
   },
 
-  leftColumn: { width: 70, alignItems: 'center' },
   avatar: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    backgroundColor: '#E5E7EB',
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    backgroundColor: '#6366F1',
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: 12,
   },
   avatarText: {
-    fontWeight: '700',
+    color: '#FFFFFF',
     fontSize: 18,
+    fontWeight: '800',
   },
   onlineDot: {
     position: 'absolute',
@@ -706,24 +517,55 @@ const styles = StyleSheet.create({
     backgroundColor: '#10B981',
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: '#fff',
+    borderColor: '#FFFFFF',
   },
 
-  midColumn: { flex: 1, paddingHorizontal: 10 },
-  chatName: { fontSize: 16, fontWeight: '700' },
-  lastMessage: { fontSize: 13, color: '#6B7280', marginTop: 4 },
+  chatInfo: {
+    flex: 1,
+  },
+  chatName: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#111827',
+  },
+  lastMessage: {
+    fontSize: 14,
+    color: '#6B7280',
+    marginTop: 4,
+  },
 
-  rightColumn: { width: 60, alignItems: 'flex-end' },
-  timeText: { fontSize: 12, color: '#9CA3AF' },
+  rightInfo: {
+    alignItems: 'flex-end',
+  },
+  time: {
+    fontSize: 12,
+    color: '#9CA3AF',
+  },
   unreadBadge: {
     marginTop: 6,
     backgroundColor: '#EF4444',
-    borderRadius: 10,
-    paddingHorizontal: 6,
+    borderRadius: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
   },
-  unreadText: { color: '#fff', fontSize: 12 },
+  unreadText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+  },
 
-  empty: { alignItems: 'center', marginTop: 40 },
-  emptyTitle: { fontSize: 18, fontWeight: '700' },
-  emptySub: { fontSize: 14, color: '#6B7280', marginTop: 6 },
+  empty: {
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#374151',
+  },
+  emptySub: {
+    fontSize: 14,
+    color: '#6B7280',
+    marginTop: 6,
+  },
 });

@@ -224,7 +224,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#b1c9e1ff",
     paddingHorizontal: 20,
     paddingTop: 40,
   },
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   profileCard: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#075E54",
+    backgroundColor: "#1981d1ff",
     padding: 20,
     borderRadius: 18,
     marginBottom: 25,
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: "#25D366",
+    backgroundColor: "#91b2dbff",
     alignItems: "center",
     justifyContent: "center",
     marginRight: 15,

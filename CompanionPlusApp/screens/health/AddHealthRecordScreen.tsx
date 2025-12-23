@@ -532,7 +532,7 @@ export default AddHealthRecordScreen;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#F1F5F9',
+    backgroundColor: '#b1c9e1ff',
     padding: 20,
     alignItems: 'center',
   },

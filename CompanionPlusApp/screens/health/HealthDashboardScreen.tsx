@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#F1F5F9',
+    backgroundColor: '#b1c9e1ff',
     alignItems: 'center',
   },
 

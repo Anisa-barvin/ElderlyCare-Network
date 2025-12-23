@@ -593,13 +593,35 @@ const getCaregiverById = async (req, res) => {
   }
 };
 
+
+/* ================= GET LOGGED-IN CAREGIVER ================= */
+const getMyProfile = async (req, res) => {
+  try {
+    console.log("Logged-in caregiver ID:", req.user.id);
+
+    const caregiver = await Caregiver.findById(req.user.id).select("-password");
+
+    if (!caregiver) {
+      return res.status(404).json({ message: "Caregiver not found" });
+    }
+
+    res.json(caregiver);
+  } catch (error) {
+    console.error("CARE GIVER PROFILE ERROR:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = { getMyProfile };
+
+
 // EXPORTS
 module.exports = {
   registerCaregiver,
   loginCaregiver,
   searchCaregivers,
   getAllCaregivers,
-  getCaregiverById
-  
+  getCaregiverById,
+  getMyProfile
 };
 

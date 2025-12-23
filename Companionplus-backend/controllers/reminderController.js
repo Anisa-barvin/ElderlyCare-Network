@@ -1,7 +1,7 @@
 const Reminder = require("../models/Reminder");
 
 /* ================= ADD ================= */
-exports.createReminder = async (req, res) => {
+const createReminder = async (req, res) => {
   try {
     const reminder = new Reminder({
       elderId: req.user.id,
@@ -16,7 +16,7 @@ exports.createReminder = async (req, res) => {
 };
 
 /* ================= GET ALL ================= */
-exports.getReminders = async (req, res) => {
+const getReminders = async (req, res) => {
   try {
     const reminders = await Reminder.find({
       elderId: req.user.id,
@@ -29,7 +29,7 @@ exports.getReminders = async (req, res) => {
 };
 
 /* ================= UPDATE ================= */
-exports.updateReminder = async (req, res) => {
+const updateReminder = async (req, res) => {
   try {
     const reminder = await Reminder.findOneAndUpdate(
       { _id: req.params.id, elderId: req.user.id },
@@ -44,15 +44,30 @@ exports.updateReminder = async (req, res) => {
 };
 
 /* ================= DELETE ================= */
-exports.deleteReminder = async (req, res) => {
+
+
+/* ================= DELETE ================= */
+const deleteReminder = async (req, res) => {
   try {
-    await Reminder.findOneAndDelete({
+    const reminder = await Reminder.findOneAndDelete({
       _id: req.params.id,
-      elderId: req.user.id,
+      elderId: req.user.id, // ✅ FIXED
     });
 
-    res.json({ message: "Reminder deleted" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    if (!reminder) {
+      return res.status(404).json({ message: "Reminder not found" });
+    }
+
+    res.json({ message: "Reminder deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
+};
+
+
+module.exports = {
+  createReminder,
+  getReminders,
+  updateReminder,
+  deleteReminder,
 };

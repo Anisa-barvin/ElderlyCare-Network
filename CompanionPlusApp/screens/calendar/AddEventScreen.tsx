@@ -1,73 +1,3 @@
-// // Path: CompanionPlusApp/screens/calendar/AddEventScreen.tsx
-
-// import React, { useState } from 'react';
-// import { View, TextInput, Text, StyleSheet, Button, Alert } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
-
-// const AddEventScreen: React.FC = () => {
-//   const [eventTitle, setEventTitle] = useState('');
-//   const [eventDate, setEventDate] = useState('');
-//   const navigation = useNavigation();
-
-//   const handleSaveEvent = () => {
-//     if (!eventTitle || !eventDate) {
-//       Alert.alert('Error', 'Please fill in all fields');
-//       return;
-//     }
-
-//     // You can save this event data in a state or database here
-//     Alert.alert('Event Saved', `Title: ${eventTitle}\nDate: ${eventDate}`);
-//     // Navigate back after saving the event
-//     navigation.goBack();
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.label}>Event Title:</Text>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Enter event title"
-//         value={eventTitle}
-//         onChangeText={setEventTitle}
-//       />
-//       <Text style={styles.label}>Event Date:</Text>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Enter event date (YYYY-MM-DD)"
-//         value={eventDate}
-//         onChangeText={setEventDate}
-//       />
-//       <Button title="Save Event" onPress={handleSaveEvent} />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 20,
-//     backgroundColor: '#F9FAFB',
-//   },
-//   label: {
-//     fontSize: 16,
-//     marginBottom: 5,
-//   },
-//   input: {
-//     height: 40,
-//     borderColor: '#ccc',
-//     borderWidth: 1,
-//     borderRadius: 5,
-//     paddingLeft: 10,
-//     marginBottom: 20,
-//   },
-// });
-
-// export default AddEventScreen;
-
-
-
-
-
 
 // import React, { useState } from 'react';
 // import {
@@ -79,22 +9,37 @@
 //   Alert,
 //   ScrollView,
 // } from 'react-native';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { useNavigation } from '@react-navigation/native';
+// import api from '../../utils/api';
 
 // const AddEventScreen: React.FC = () => {
 //   const [eventTitle, setEventTitle] = useState('');
 //   const [eventDate, setEventDate] = useState('');
 //   const navigation = useNavigation();
 
-//   const handleSaveEvent = () => {
-//     if (!eventTitle || !eventDate) {
-//       Alert.alert('Error', 'Please fill in all fields');
-//       return;
-//     }
+//   const handleSaveEvent = async () => {
+//   if (!eventTitle || !eventDate) {
+//     Alert.alert("Error", "Please fill in all fields");
+//     return;
+//   }
 
-//     Alert.alert('Event Saved', `Title: ${eventTitle}\nDate: ${eventDate}`);
+//   try {
+//     const token = await AsyncStorage.getItem("token");
+
+//     await api.post(
+//       "/events",
+//       { title: eventTitle, date: eventDate },
+//       { headers: { Authorization: `Bearer ${token}` } }
+//     );
+
+//     Alert.alert("Event Saved", "Your event has been added.");
 //     navigation.goBack();
-//   };
+//   } catch (error) {
+//     Alert.alert("Error", "Failed to save event");
+//   }
+// };
+
 
 //   return (
 //     <ScrollView contentContainerStyle={styles.container}>
@@ -117,7 +62,6 @@
 //           onChangeText={setEventDate}
 //         />
 
-//         {/* Save Button */}
 //         <TouchableOpacity style={styles.button} onPress={handleSaveEvent}>
 //           <Text style={styles.buttonText}>Save Event</Text>
 //         </TouchableOpacity>
@@ -127,6 +71,9 @@
 // };
 
 // export default AddEventScreen;
+
+// /* STYLES SAME AS YOURS */
+
 
 // /* ===================== STYLES ===================== */
 
@@ -178,7 +125,7 @@
 
 //   button: {
 //     marginTop: 30,
-//     backgroundColor: '#4F46E5',
+//     backgroundColor: '#635ed3ff',
 //     paddingVertical: 14,
 //     borderRadius: 10,
 //     alignItems: 'center',
@@ -190,10 +137,6 @@
 //     fontWeight: 'bold',
 //   },
 // });
-
-
-
-
 
 
 import React, { useState } from 'react';
@@ -216,37 +159,44 @@ const AddEventScreen: React.FC = () => {
   const navigation = useNavigation();
 
   const handleSaveEvent = async () => {
-  if (!eventTitle || !eventDate) {
-    Alert.alert("Error", "Please fill in all fields");
-    return;
-  }
+    if (!eventTitle || !eventDate) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
 
-  try {
-    const token = await AsyncStorage.getItem("token");
+    try {
+      const token = await AsyncStorage.getItem('token');
 
-    await api.post(
-      "/events",
-      { title: eventTitle, date: eventDate },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+      await api.post(
+        '/events',
+        { title: eventTitle, date: eventDate },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-    Alert.alert("Event Saved", "Your event has been added.");
-    navigation.goBack();
-  } catch (error) {
-    Alert.alert("Error", "Failed to save event");
-  }
-};
-
+      Alert.alert('Event Saved', 'Your event has been added.');
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert('Error', 'Failed to save event');
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.screenTitle}>Add New Event</Text>
+      {/* HEADER */}
+      <View style={styles.header}>
+        <Text style={styles.screenTitle}>Add Event</Text>
+        <Text style={styles.subTitle}>
+          Keep track of important dates effortlessly
+        </Text>
+      </View>
 
+      {/* CARD */}
       <View style={styles.card}>
         <Text style={styles.label}>Event Title</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter event title"
+          placeholder="Eg: Doctor Appointment"
+          placeholderTextColor="#9CA3AF"
           value={eventTitle}
           onChangeText={setEventTitle}
         />
@@ -255,6 +205,7 @@ const AddEventScreen: React.FC = () => {
         <TextInput
           style={styles.input}
           placeholder="YYYY-MM-DD"
+          placeholderTextColor="#9CA3AF"
           value={eventDate}
           onChangeText={setEventDate}
         />
@@ -269,68 +220,79 @@ const AddEventScreen: React.FC = () => {
 
 export default AddEventScreen;
 
-/* STYLES SAME AS YOURS */
-
-
 /* ===================== STYLES ===================== */
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 24,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#b1c9e1ff', // 💜 Soft lavender background
+    padding: 20,
+    justifyContent: 'center',
+  },
+
+  header: {
     alignItems: 'center',
+    marginBottom: 24,
   },
 
   screenTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#111827',
-    marginBottom: 20,
+    fontSize: 30,
+    fontWeight: '800',
+    color: '#1E3A8A',
+  },
+
+  subTitle: {
+    fontSize: 14,
+    color: '#475569',
+    marginTop: 6,
+    textAlign: 'center',
   },
 
   card: {
-    width: '100%',
-    maxWidth: 600,
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
-    elevation: 4,
+    borderRadius: 20,
+    padding: 22,
+    elevation: 8,
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 
   label: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#374151',
-    marginBottom: 8,
-    marginTop: 12,
+    color: '#334155',
+    marginBottom: 6,
+    marginTop: 14,
   },
 
   input: {
     borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
+    borderColor: '#CBD5E1',
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
     fontSize: 16,
+    backgroundColor: '#F8FAFC',
   },
 
   button: {
-    marginTop: 30,
-    backgroundColor: '#4F46E5',
-    paddingVertical: 14,
-    borderRadius: 10,
+    marginTop: 32,
+    backgroundColor: '#6366F1',
+    paddingVertical: 16,
+    borderRadius: 14,
     alignItems: 'center',
+    shadowColor: '#6366F1',
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 5,
   },
 
   buttonText: {
-    color: 'white',
-    fontSize: 17,
-    fontWeight: 'bold',
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '800',
+    letterSpacing: 0.6,
   },
 });

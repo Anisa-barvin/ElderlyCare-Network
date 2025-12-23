@@ -246,7 +246,7 @@ export default AddReminderScreen;
 const styles = StyleSheet.create({
   page: {
     flexGrow: 1,
-    backgroundColor: '#a9c1d9ff',
+    backgroundColor: '#b1c9e1ff',
     alignItems: 'center',
     paddingVertical: 40,
   },
