@@ -228,6 +228,7 @@ const menuItems = [
   { label: 'Reminders', route: 'RemindersListScreen', icon: '📝' },
   { label: 'Settings', route: 'SettingsScreen', icon: '⚙️' },
    { label: 'AIChat', route: 'AIChat', icon: '🤖' },
+   { label: 'Help', route: 'HelpScreen', icon : '🤝'},
    //{ label: 'VoiceChat', route: 'VoiceChat', icon: '🎤' },
   
   

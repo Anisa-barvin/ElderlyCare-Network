@@ -229,6 +229,11 @@ const handleLogout = async () => {
           icon="🔔"
           onPress={() => navigation.navigate('CaregiverNotifications' as never)}
         />
+         <Card
+          title="Help"
+          icon="🤝"
+          onPress={() => navigation.navigate('CaregiverHelp' as never)}
+        />
       </View>
     </ScrollView>
   );

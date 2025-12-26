@@ -1,108 +1,40 @@
 
-// import React, { useEffect } from 'react';
-// import {
-//   View,
-//   Text,
-//   Image,
-//   StyleSheet,
-//   ActivityIndicator,
-// } from 'react-native';
-// import { useNavigation, CommonActions } from '@react-navigation/native';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const SplashScreen = () => {
-//   const navigation = useNavigation();
-
-//   useEffect(() => {
-//     const checkLoginStatus = async () => {
-//       try {
-//         const token = await AsyncStorage.getItem('token');
-
-//         setTimeout(() => {
-//           if (token) {
-//             // ✅ User already logged in
-//             navigation.dispatch(
-//               CommonActions.reset({
-//                 index: 0,
-//                 routes: [{ name: 'ElderHome' as never }], // OR CaregiverHome based on role
-//               })
-//             );
-//           } else {
-//             // ❌ User not logged in
-//             navigation.dispatch(
-//               CommonActions.reset({
-//                 index: 0,
-//                 routes: [{ name: 'RoleSelection' as never }],
-//               })
-//             );
-//           }
-//         }, 2000); // splash duration
-
-//       } catch (error) {
-//         console.log('Splash Error:', error);
-//         navigation.navigate('RoleSelection' as never);
-//       }
-//     };
-
-//     checkLoginStatus();
-//   }, []);
-
-//   return (
-//     <View style={styles.container}>
-//       <Image
-//         source={require('../../assets/logo.png')}
-//         style={styles.logo}
-//       />
-//       <Text style={styles.title}>Welcome to Companion+</Text>
-//       <ActivityIndicator size="large" color="#4CAF50" style={styles.spinner} />
-//     </View>
-//   );
-// };
-
-// export default SplashScreen;
-
-// /* ================= STYLES ================= */
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#f2f2f2',
-//   },
-//   logo: {
-//     width: 150,
-//     height: 150,
-//     marginBottom: 20,
-//   },
-//   title: {
-//     fontSize: 24,
-//     fontWeight: 'bold',
-//     color: '#4CAF50',
-//     marginBottom: 20,
-//   },
-//   spinner: {
-//     marginTop: 20,
-//   },
-// });
-
-
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   View,
   Text,
   Image,
   StyleSheet,
   ActivityIndicator,
+  Animated,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const SplashScreen = () => {
   const navigation = useNavigation<any>();
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.9)).current;
+
   useEffect(() => {
+    // 🔥 Animation
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        friction: 5,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    // ⏱ Navigation
     const timer = setTimeout(() => {
-      navigation.replace('AuthLoading'); // ✅ ONLY THIS
+      navigation.replace('AuthLoading');
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -110,12 +42,31 @@ const SplashScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../assets/favicon.png')}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Welcome to Companion+</Text>
-      <ActivityIndicator size="large" color="#4CAF50" style={styles.spinner} />
+      <Animated.View
+        style={[
+          styles.card,
+          {
+            opacity: fadeAnim,
+            transform: [{ scale: scaleAnim }],
+          },
+        ]}
+      >
+        <Image
+          source={require('../../assets/4rJPy01.svg')}
+          style={styles.logo}
+        />
+
+        <Text style={styles.title}>Companion+</Text>
+        <Text style={styles.subtitle}>
+          Caring made simple & connected
+        </Text>
+
+        <ActivityIndicator
+          size="large"
+          color="#2563EB"
+          style={styles.spinner}
+        />
+      </Animated.View>
     </View>
   );
 };
@@ -126,22 +77,45 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#E8F0FE', // 🌿 soft blue
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
   },
+
+  card: {
+    width: '85%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    paddingVertical: 40,
+    alignItems: 'center',
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+  },
+
   logo: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
     marginBottom: 20,
   },
+
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#4CAF50',
-    marginBottom: 20,
+    fontSize: 30,
+    fontWeight: '800',
+    color: '#2563EB',
+    marginBottom: 6,
   },
+
+  subtitle: {
+    fontSize: 15,
+    color: '#6B7280',
+    marginBottom: 30,
+    textAlign: 'center',
+    paddingHorizontal: 20,
+  },
+
   spinner: {
-    marginTop: 20,
+    marginTop: 10,
   },
 });

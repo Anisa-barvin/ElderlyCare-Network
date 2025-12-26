@@ -2,20 +2,27 @@
   "expo": {
     "name": "CompanionPlusApp",
     "slug": "CompanionPlusApp",
-    "platforms": ["ios", "android","web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "android": {
-      "permissions": ["RECORD_AUDIO"]
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.ag.companionplusapp"
     },
     "updates": {
       "enabled": true
@@ -27,15 +34,13 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.ag.companionplusapp"
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-       "package": "com.ag.companionplusapp"
-    },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "851681aa-0088-4d90-95d2-2ae2c0ea2d40"
+      }
     }
   }
 }

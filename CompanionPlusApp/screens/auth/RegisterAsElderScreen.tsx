@@ -953,7 +953,7 @@ export default RegisterAsElderScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#b1c9e1ff',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,

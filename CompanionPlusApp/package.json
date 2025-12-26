@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.1",
-    "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/datetimepicker": "8.2.0",
     "@react-native-picker/picker": "2.9.0",
     "@react-navigation/native": "^7.1.6",
@@ -19,14 +19,15 @@
     "axios": "^1.13.2",
     "cors": "^2.8.5",
     "expo": "~52.0.47",
+    "expo-av": "~15.0.2",
     "expo-image-picker": "~16.0.6",
     "expo-location": "~18.0.10",
     "expo-status-bar": "~2.0.1",
     "jwt-decode": "^4.0.0",
     "multer": "^1.4.5-lts.2",
     "native-base": "^2.15.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-native": "0.76.9",
     "react-native-calendar-events": "^2.2.0",
     "react-native-calendars": "^1.1311.0",
@@ -42,15 +43,30 @@
     "react-native-svg": "15.8.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.13",
-    "socket.io-client": "^4.8.1",
-    "expo-av": "~15.0.2"
+    "socket.io-client": "^4.8.1"
+  },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "expo-av",
+          "native-base",
+          "react-native-calendar-events",
+          "socket.io-client",
+          "react-native-vector-icons",
+          "react-native-floating-action"
+        ]
+      }
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@react-native-community/cli": "latest",
     "@types/axios": "^0.9.36",
     "@types/react": "~18.3.12",
-    "@types/react-native": "^0.72.8",
+    "metro": "^0.81.0",
+    "metro-config": "^0.81.0",
+    "metro-resolver": "^0.81.0",
     "typescript": "^5.3.3"
   },
   "private": true

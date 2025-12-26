@@ -1,292 +1,163 @@
-// // Path: CompanionPlusApp/screens/common/HelpScreen.tsx
-
-// import React from 'react';
-// import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
-
-// const HelpScreen: React.FC = () => {
-//   const navigation = useNavigation();
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.header}>Help & Support</Text>
-//       <ScrollView style={styles.content}>
-//         <Text style={styles.sectionHeader}>Frequently Asked Questions (FAQ)</Text>
-//         <Text style={styles.faqText}>
-//           1. How do I log in to my account? {'\n'}
-//           Answer: You can log in by selecting either "Login as Elder" or "Login as Relation" from the login screen.
-//         </Text>
-//         <Text style={styles.faqText}>
-//           2. How can I request a caregiver? {'\n'}
-//           Answer: Navigate to the "Caregiver Matching" section and search for available caregivers. You can then request a caregiver based on your needs.
-//         </Text>
-//         <Text style={styles.faqText}>
-//           3. How can I set up health reminders? {'\n'}
-//           Answer: Go to the "Reminders" section, where you can add and manage health-related reminders.
-//         </Text>
-
-//         <Text style={styles.sectionHeader}>Contact Support</Text>
-//         <Text style={styles.helpText}>
-//           If you have any further questions or need assistance, feel free to contact our support team at support@companionplus.com.
-//         </Text>
-
-//         <Text style={styles.sectionHeader}>Feedback</Text>
-//         <Text style={styles.helpText}>
-//           We would love to hear your feedback to improve the app. Please send your thoughts to feedback@companionplus.com.
-//         </Text>
-
-//         <Button
-//           title="Back to Home"
-//           onPress={() => navigation.navigate("Home" as never)} // Navigate to Home Screen
-//         />
-//       </ScrollView>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 20,
-//     backgroundColor: '#F9FAFB',
-//   },
-//   header: {
-//     fontSize: 32,
-//     fontWeight: 'bold',
-//     color: '#4B5563',
-//     marginBottom: 10,
-//   },
-//   content: {
-//     marginTop: 20,
-//   },
-//   sectionHeader: {
-//     fontSize: 24,
-//     fontWeight: '600',
-//     color: '#1F2937',
-//     marginBottom: 10,
-//     marginTop: 20,
-//   },
-//   faqText: {
-//     fontSize: 16,
-//     color: '#6B7280',
-//     marginBottom: 10,
-//   },
-//   helpText: {
-//     fontSize: 16,
-//     color: '#6B7280',
-//     marginBottom: 15,
-//   },
-// });
-
-// export default HelpScreen;
-
-
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
-const HelpScreen: React.FC = () => {
-  const navigation = useNavigation();
-
-  // Accordion states
-  const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [open3, setOpen3] = useState(false);
-
+const HelpScreen = () => {
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <Text style={styles.header}>💬 Help & Support</Text>
-      <Text style={styles.subheader}>We’re here to assist you</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* HEADER */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Help & Guide</Text>
+        <Text style={styles.headerSubtitle}>
+          Easy instructions to use Companion+
+        </Text>
+      </View>
 
-      <ScrollView style={styles.scroll}>
+      {/* HOW TO USE */}
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>📘 How to Use the App</Text>
 
-        {/* FAQ */}
-        <Text style={styles.sectionHeader}>Frequently Asked Questions</Text>
+        <Text style={styles.text}>
+          • Use the menu to navigate between features.
+        </Text>
+        <Text style={styles.text}>
+          • Always tap the back button to return safely.
+        </Text>
+        <Text style={styles.text}>
+          • Logout only when you finish using the app.
+        </Text>
+      </View>
 
-        {/* Accordion 1 */}
-        <TouchableOpacity style={styles.accordion} onPress={() => setOpen1(!open1)}>
-          <Text style={styles.question}>
-            1. How do I log in to my account?
-          </Text>
-          <Text style={styles.arrow}>{open1 ? "▲" : "▼"}</Text>
-        </TouchableOpacity>
-        {open1 && (
-          <Text style={styles.answer}>
-            You can log in by selecting "Login as Elder" or "Login as Relation".
-          </Text>
-        )}
+      {/* CAREGIVER HELP */}
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>🧑‍⚕️ Caregiver Help</Text>
 
-        {/* Accordion 2 */}
-        <TouchableOpacity style={styles.accordion} onPress={() => setOpen2(!open2)}>
-          <Text style={styles.question}>
-            2. How can I request a caregiver?
-          </Text>
-          <Text style={styles.arrow}>{open2 ? "▲" : "▼"}</Text>
-        </TouchableOpacity>
-        {open2 && (
-          <Text style={styles.answer}>
-            Go to the Caregiver Matching section, choose a caregiver, and send a request.
-          </Text>
-        )}
+        <Text style={styles.text}>
+          • Search caregivers by name or location.
+        </Text>
+        <Text style={styles.text}>
+          • View caregiver details before sending a request.
+        </Text>
+        <Text style={styles.text}>
+          • You will get a notification once your request is accepted.
+        </Text>
+      </View>
 
-        {/* Accordion 3 */}
-        <TouchableOpacity style={styles.accordion} onPress={() => setOpen3(!open3)}>
-          <Text style={styles.question}>
-            3. How can I set up health reminders?
-          </Text>
-          <Text style={styles.arrow}>{open3 ? "▲" : "▼"}</Text>
-        </TouchableOpacity>
-        {open3 && (
-          <Text style={styles.answer}>
-            Visit the Reminders section to add and manage your health reminders.
-          </Text>
-        )}
+      {/* CHAT HELP */}
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>💬 Chat Help</Text>
 
-        {/* Contact Box */}
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📞 Contact Support</Text>
-          <Text style={styles.cardText}>
-            If you need more assistance, reach us at:
-          </Text>
-          <Text style={styles.cardEmail}>support@companionplus.com</Text>
-        </View>
+        <Text style={styles.text}>
+          • Open Chat List to see other elders.
+        </Text>
+        <Text style={styles.text}>
+          • Messages appear instantly in the chat screen.
+        </Text>
+        <Text style={styles.text}>
+          • Scroll down to see latest messages like WhatsApp.
+        </Text>
+      </View>
 
-        {/* Feedback Box */}
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📝 Feedback</Text>
-          <Text style={styles.cardText}>
-            We would love to hear your suggestions.
-          </Text>
-          <Text style={styles.cardEmail}>feedback@companionplus.com</Text>
-        </View>
+      {/* REMINDER HELP */}
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>⏰ Reminder Help</Text>
 
-        {/* Back Button */}
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate("Home" as never)}
-        >
-          <Text style={styles.backButtonText}>⬅ Back to Home</Text>
-        </TouchableOpacity>
+        <Text style={styles.text}>
+          • Use reminders for medicine, food, or appointments.
+        </Text>
+        <Text style={styles.text}>
+          • You can edit or delete reminders anytime.
+        </Text>
+        <Text style={styles.text}>
+          • Completed reminders will be marked automatically.
+        </Text>
+      </View>
 
-      </ScrollView>
-    </View>
+      {/* SAFETY */}
+      {/* <View style={styles.emergencyCard}>
+        <Text style={styles.emergencyTitle}>🚨 Safety Tip</Text>
+        <Text style={styles.emergencyText}>
+          In emergency situations, use the SOS button immediately.
+        </Text>
+      </View> */}
+    </ScrollView>
   );
 };
 
 export default HelpScreen;
 
-/* ---------------- STYLES ---------------- */
+/* ===================== STYLES ===================== */
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
+    paddingBottom: 40,
     backgroundColor: '#b1c9e1ff',
   },
 
   header: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#1F2937',
-    textAlign: 'center',
-  },
-
-  subheader: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: '#6B7280',
+    backgroundColor: '#2563EB',
+    padding: 24,
+    borderBottomLeftRadius: 28,
+    borderBottomRightRadius: 28,
     marginBottom: 20,
   },
 
-  scroll: {
-    marginTop: 10,
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#FFFFFF',
   },
 
-  sectionHeader: {
-    fontSize: 26,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 10,
-  },
-
-  /* Accordion */
-  accordion: {
-    backgroundColor: '#FFFFFF',
-    padding: 15,
-    borderRadius: 8,
-    marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    elevation: 2,
-  },
-
-  question: {
-    fontSize: 16,
-    color: '#1F2937',
-    fontWeight: '500',
-  },
-
-  arrow: {
-    fontSize: 18,
-    color: '#4B5563',
-  },
-
-  answer: {
+  headerSubtitle: {
     fontSize: 15,
-    backgroundColor: '#E5E7EB',
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 5,
-    color: '#374151',
+    color: '#DBEAFE',
+    marginTop: 6,
   },
 
-  /* Cards */
   card: {
     backgroundColor: '#FFFFFF',
-    marginTop: 20,
+    marginHorizontal: 16,
+    borderRadius: 18,
     padding: 20,
-    borderRadius: 10,
-    elevation: 3,
+    marginBottom: 16,
+    elevation: 4,
   },
 
-  cardTitle: {
-    fontSize: 22,
-    fontWeight: '600',
-    marginBottom: 6,
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
     color: '#111827',
+    marginBottom: 12,
   },
 
-  cardText: {
+  text: {
+    fontSize: 16,
+    color: '#374151',
+    marginBottom: 8,
+    lineHeight: 24,
+  },
+
+  emergencyCard: {
+    backgroundColor: '#FEF2F2',
+    marginHorizontal: 16,
+    borderRadius: 18,
+    padding: 20,
+    marginTop: 10,
+  },
+
+  emergencyTitle: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#DC2626',
+    marginBottom: 6,
+  },
+
+  emergencyText: {
     fontSize: 15,
-    color: '#6B7280',
-  },
-
-  cardEmail: {
-    marginTop: 8,
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#2563EB',
-  },
-
-  /* Back Button */
-  backButton: {
-    marginTop: 30,
-    backgroundColor: '#2563EB',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-
-  backButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
+    color: '#7F1D1D',
   },
 });
