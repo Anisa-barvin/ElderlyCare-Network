@@ -203,7 +203,7 @@
 
 
 
-
+import { logout } from '../../utils/auth';
 import { removeToken } from '../../utils/storage';
 import React from 'react';
 import {
@@ -237,8 +237,16 @@ const menuItems = [
 const ElderHomeScreen = () => {
   const navigation = useNavigation();
 
- const handleLogout = async () => {
-  await removeToken();
+//  const handleLogout = async () => {
+//   await removeToken();
+//   navigation.reset({
+//     index: 0,
+//     routes: [{ name: 'RoleSelection' as never }],
+//   });
+// };
+
+const handleLogout = async () => {
+  await logout();
   navigation.reset({
     index: 0,
     routes: [{ name: 'RoleSelection' as never }],

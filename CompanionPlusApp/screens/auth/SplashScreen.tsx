@@ -52,7 +52,7 @@ const SplashScreen = () => {
         ]}
       >
         <Image
-          source={require('../../assets/4rJPy01.svg')}
+          source={require('../../assets/favicon.png')}
           style={styles.logo}
         />
 

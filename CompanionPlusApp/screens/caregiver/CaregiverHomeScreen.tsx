@@ -144,7 +144,7 @@
 //   },
 // });
 
-
+import { logout } from '../../utils/auth';
 import { removeToken } from '../../utils/storage';
 import React from 'react';
 import {
@@ -160,16 +160,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CaregiverHomeScreen = () => {
   const navigation = useNavigation();
-
+  
   /* ================= LOGOUT ================= */
 const handleLogout = async () => {
-  await removeToken();
+  await logout();
   navigation.reset({
     index: 0,
     routes: [{ name: 'RoleSelection' as never }],
   });
 };
-
 
   const Card = ({
     title,

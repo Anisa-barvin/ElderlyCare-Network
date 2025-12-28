@@ -28,35 +28,6 @@ const CaregiverLoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-//   const handleLogin = async () => {
-//   if (!email || !password) {
-//     Alert.alert('Error', 'Please enter email and password');
-//     return;
-//   }
-
-//   try {
-//     const response = await api.post<CaregiverLoginResponse>(
-//       '/caregiver/login',
-//       { email, password }
-//     );
-
-//     // ✅ NOW TYPESCRIPT KNOWS response.data
-//     await AsyncStorage.setItem('token', response.data.token);
-//     await AsyncStorage.setItem('caregiverId', response.data.caregiver._id);
-
-    
-//     Alert.alert('Success', 'Login successful');
-//     navigation.navigate('CaregiverHome' as never);
-
-//   } catch (error: any) {
-//     console.log('Login Error:', error.response?.data);
-//     Alert.alert(
-//       'Login Failed',
-//       error.response?.data?.message || 'Something went wrong'
-//     );
-//   }
-// };
-
 const handleLogin = async () => {
   if (!email || !password) {
     Alert.alert('Error', 'Please enter email and password');
@@ -75,7 +46,7 @@ const handleLogin = async () => {
 
     // 🔥 THIS IS THE FIX
     await AsyncStorage.setItem('role', 'caregiver');
-
+    await AsyncStorage.setItem('hasLoggedOut', 'false');
     Alert.alert('Success', 'Login successful');
     navigation.navigate('CaregiverHome' as never);
 

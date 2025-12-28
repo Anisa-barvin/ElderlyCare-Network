@@ -736,6 +736,317 @@
 
 
 
+
+
+// import React, { useState, useMemo } from 'react';
+// import {
+//   View,
+//   Text,
+//   TextInput,
+//   StyleSheet,
+//   TouchableOpacity,
+//   Alert,
+//   KeyboardAvoidingView,
+//   Platform,
+//   ActivityIndicator,
+// } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+// import api from '../../utils/api';
+
+// const RegisterAsElderScreen = () => {
+//   const navigation = useNavigation();
+
+//   // State for all fields
+//   const [name, setName] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [age, setAge] = useState('');
+//   const [phone, setPhone] = useState('');
+//   const [gender, setGender] = useState('');
+//   const [address, setAddress] = useState('');
+
+//   // UI State
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [loading, setLoading] = useState(false);
+
+//   // Validation
+//   const isEmailValid = useMemo(() => /\S+@\S+\.\S+/.test(email), [email]);
+//   const isPasswordValid = useMemo(() => password.length >= 6, [password]);
+//   const isAgeValid = useMemo(() => Number(age) > 0 && Number(age) < 120, [age]);
+//   const isPhoneValid = useMemo(() => /^[0-9]{10}$/.test(phone), [phone]);
+//   const isGenderValid = useMemo(
+//     () => ['male', 'female', 'other'].includes(gender.toLowerCase()),
+//     [gender]
+//   );
+
+//   const isFormValid =
+//     isEmailValid &&
+//     isPasswordValid &&
+//     name.trim() !== '' &&
+//     isAgeValid &&
+//     isPhoneValid &&
+//     isGenderValid &&
+//     address.trim() !== '';
+
+//   const handleRegister = async () => {
+//     if (!isFormValid) {
+//       Alert.alert('Invalid input', 'Please correct the form.');
+//       return;
+//     }
+
+//     setLoading(true);
+
+//     try {
+//       const response = await api.post('/auth/register', {
+//         name,
+//         email,
+//         password,
+//         age: Number(age),
+//         phone,
+//         address,
+//         gender,
+//         role: 'elder',
+//       });
+
+//       console.log('Registered:', response.data);
+       
+//       Alert.alert('Success', 'Registration completed!', [
+//         { text: 'Login', onPress: () => navigation.navigate('LoginAsElder' as never) },
+//       ]);
+//     } catch (err: any) {
+//       console.log('Error:', err.response?.data || err);
+//       Alert.alert('Error', err.response?.data?.message || 'Registration failed.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <KeyboardAvoidingView
+//       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+//       style={styles.container}
+//     >
+//       <View style={styles.card}>
+//         <Text style={styles.title}>Create Elder Account</Text>
+//         <Text style={styles.subtitle}>Fill the details to continue</Text>
+
+//         {/* Full Name */}
+//         <TextInput
+//           style={styles.input}
+//           placeholder="Full Name"
+//           value={name}
+//           onChangeText={setName}
+//         />
+
+//         {/* Email */}
+//         <TextInput
+//           style={styles.input}
+//           placeholder="Email"
+//           value={email}
+//           onChangeText={setEmail}
+//           keyboardType="email-address"
+//           autoCapitalize="none"
+//         />
+//         {!isEmailValid && email.length > 0 && (
+//           <Text style={styles.error}>Invalid email format</Text>
+//         )}
+
+//         {/* Password */}
+//         <View style={styles.passwordRow}>
+//           <TextInput
+//             style={[styles.input, { flex: 1 }]}
+//             placeholder="Password"
+//             secureTextEntry={!showPassword}
+//             value={password}
+//             onChangeText={setPassword}
+//           />
+//           <TouchableOpacity
+//             onPress={() => setShowPassword(!showPassword)}
+//             style={styles.showBtn}
+//           >
+//             <Text style={styles.showText}>{showPassword ? 'Hide' : 'Show'}</Text>
+//           </TouchableOpacity>
+//         </View>
+//         {!isPasswordValid && password.length > 0 && (
+//           <Text style={styles.error}>Password must be at least 6 characters</Text>
+//         )}
+
+//         {/* Age */}
+//         <TextInput
+//           style={styles.input}
+//           placeholder="Age"
+//           keyboardType="number-pad"
+//           value={age}
+//           onChangeText={(t) => setAge(t.replace(/[^0-9]/g, ''))}
+//         />
+//         {!isAgeValid && age.length > 0 && (
+//           <Text style={styles.error}>Enter a valid age (1–120)</Text>
+//         )}
+
+//         {/* Phone Number */}
+//         <TextInput
+//           style={styles.input}
+//           placeholder="Phone Number (10 digits)"
+//           keyboardType="number-pad"
+//           maxLength={10}
+//           value={phone}
+//           onChangeText={(t) => setPhone(t.replace(/[^0-9]/g, ''))}
+//         />
+//         {!isPhoneValid && phone.length > 0 && (
+//           <Text style={styles.error}>Enter a valid 10-digit phone number</Text>
+//         )}
+
+//         {/* Gender */}
+//         <TextInput
+//           style={styles.input}
+//           placeholder="Gender (Male / Female / Other)"
+//           value={gender}
+//           onChangeText={setGender}
+//         />
+//         {!isGenderValid && gender.length > 0 && (
+//           <Text style={styles.error}>Enter Male, Female, or Other</Text>
+//         )}
+
+//         {/* Address */}
+//         <TextInput
+//           style={[styles.input, { height: 70 }]}
+//           placeholder="Address"
+//           multiline
+//           value={address}
+//           onChangeText={setAddress}
+//         />
+//         {address.trim() === '' && (
+//           <Text style={styles.error}>Address cannot be empty</Text>
+//         )}
+
+//         {/* Register Button */}
+//         <TouchableOpacity
+//           style={[styles.button, !isFormValid && styles.disabledButton]}
+//           disabled={!isFormValid || loading}
+//           onPress={handleRegister}
+//         >
+//           {loading ? (
+//             <ActivityIndicator color="#fff" />
+//           ) : (
+//             <Text style={styles.buttonText}>Register</Text>
+//           )}
+//         </TouchableOpacity>
+
+//         {/* Footer */}
+//         <Text style={styles.footer}>
+//           Already have an account?
+//           <Text
+//             style={styles.link}
+//             onPress={() => navigation.navigate('LoginAsElder' as never)}
+//           >
+//             {' '}
+//             Login
+//           </Text>
+//         </Text>
+//       </View>
+//     </KeyboardAvoidingView>
+//   );
+// };
+
+// export default RegisterAsElderScreen;
+
+// /* ===================== STYLES ====================== */
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#b1c9e1ff',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     padding: 20,
+//   },
+
+//   card: {
+//     width: '100%',
+//     maxWidth: 420,
+//     backgroundColor: '#fff',
+//     borderRadius: 20,
+//     padding: 25,
+//     elevation: 10,
+//   },
+
+//   title: {
+//     fontSize: 26,
+//     fontWeight: '700',
+//     textAlign: 'center',
+//   },
+
+//   subtitle: {
+//     textAlign: 'center',
+//     fontSize: 15,
+//     color: '#6B7280',
+//     marginBottom: 20,
+//   },
+
+//   input: {
+//     height: 48,
+//     borderWidth: 1,
+//     borderColor: '#E5E7EB',
+//     borderRadius: 10,
+//     paddingHorizontal: 12,
+//     backgroundColor: '#F9FAFB',
+//     fontSize: 16,
+//     marginBottom: 12,
+//   },
+
+//   passwordRow: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//   },
+
+//   showBtn: {
+//     paddingHorizontal: 8,
+//   },
+
+//   showText: {
+//     color: '#2563EB',
+//     fontWeight: '600',
+//   },
+
+//   error: {
+//     fontSize: 12,
+//     color: '#DC2626',
+//     marginBottom: 5,
+//   },
+
+//   button: {
+//     backgroundColor: '#22C55E',
+//     paddingVertical: 14,
+//     borderRadius: 10,
+//     alignItems: 'center',
+//     marginTop: 10,
+//   },
+
+//   disabledButton: {
+//     backgroundColor: '#9AE6B4',
+//   },
+
+//   buttonText: {
+//     color: '#fff',
+//     fontSize: 17,
+//     fontWeight: '700',
+//   },
+
+//   footer: {
+//     marginTop: 18,
+//     textAlign: 'center',
+//   },
+
+//   link: {
+//     color: '#2563EB',
+//     fontWeight: '700',
+//   },
+// });
+
+
+
+
+
 import React, { useState, useMemo } from 'react';
 import {
   View,
@@ -752,9 +1063,9 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../../utils/api';
 
 const RegisterAsElderScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
-  // State for all fields
+  // Form State
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -786,38 +1097,119 @@ const RegisterAsElderScreen = () => {
     isGenderValid &&
     address.trim() !== '';
 
-  const handleRegister = async () => {
-    if (!isFormValid) {
-      Alert.alert('Invalid input', 'Please correct the form.');
-      return;
+  /* ================= REGISTER ================= */
+//   const handleRegister = async () => {
+//     if (!isFormValid) {
+//       Alert.alert('Invalid input', 'Please correct the form.');
+//       return;
+//     }
+
+//     setLoading(true);
+
+//     try {
+//       const response = await api.post('/auth/register', {
+//         name,
+//         email,
+//         password,
+//         age: Number(age),
+//         phone,
+//         address,
+//         gender,
+//         role: 'elder',
+//       });
+
+//       console.log('Registered:', response.data);
+
+//       // ✅ OTP SUCCESS FLOW
+//       Alert.alert(
+//         'OTP Sent',
+//         'An OTP has been sent to your email. Please verify.',
+//         [
+//           {
+//             text: 'Verify Now',
+//             onPress: () =>
+//               navigation.navigate('VerifyOtp', { email }),
+//           },
+//         ]
+//       );
+//     } catch (err: any) {
+//   if (err.response?.status === 403) {
+//     Alert.alert(
+//       "Email Not Verified",
+//       "Please verify your email first",
+//       [
+//         {
+//           text: "Verify Now",
+//           onPress: () =>
+//             navigation.navigate("VerifyOtp", { email }),
+//         },
+//       ]
+//     );
+//   } else {
+//     Alert.alert("Login Failed", err.response?.data?.message);
+//   }
+// }
+//  finally {
+//       setLoading(false);
+//     }
+//   };
+
+
+const handleRegister = async () => {
+  if (!isFormValid) {
+    Alert.alert('Invalid input', 'Please correct the form.');
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const response = await api.post('/auth/register', {
+      name,
+      email,
+      password,
+      age: Number(age),
+      phone,
+      address,
+      gender,
+      role: 'elder',
+    });
+
+    console.log('Registered:', response.data);
+
+    // ✅ Show message
+    Alert.alert('OTP Sent', 'An OTP has been sent to your email.');
+
+    // ✅ Navigate AFTER alert (important)
+   setTimeout(() => {
+  navigation.navigate('VerifyOtp', {
+    email,
+    role: 'elder',
+  });
+}, 300);
+
+
+  } catch (err: any) {
+    if (err.response?.status === 403) {
+      Alert.alert('Email Not Verified', 'Please verify your email');
+
+     setTimeout(() => {
+  navigation.navigate('VerifyOtp', {
+    email,
+    role: 'elder',
+  });
+}, 300);
+
+    } else {
+      Alert.alert(
+        'Registration Failed',
+        err.response?.data?.message || 'Something went wrong'
+      );
     }
-
-    setLoading(true);
-
-    try {
-      const response = await api.post('/auth/register', {
-        name,
-        email,
-        password,
-        age: Number(age),
-        phone,
-        address,
-        gender,
-        role: 'elder',
-      });
-
-      console.log('Registered:', response.data);
-
-      Alert.alert('Success', 'Registration completed!', [
-        { text: 'Login', onPress: () => navigation.navigate('LoginAsElder' as never) },
-      ]);
-    } catch (err: any) {
-      console.log('Error:', err.response?.data || err);
-      Alert.alert('Error', err.response?.data?.message || 'Registration failed.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <KeyboardAvoidingView
@@ -828,7 +1220,6 @@ const RegisterAsElderScreen = () => {
         <Text style={styles.title}>Create Elder Account</Text>
         <Text style={styles.subtitle}>Fill the details to continue</Text>
 
-        {/* Full Name */}
         <TextInput
           style={styles.input}
           placeholder="Full Name"
@@ -836,7 +1227,6 @@ const RegisterAsElderScreen = () => {
           onChangeText={setName}
         />
 
-        {/* Email */}
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -849,7 +1239,6 @@ const RegisterAsElderScreen = () => {
           <Text style={styles.error}>Invalid email format</Text>
         )}
 
-        {/* Password */}
         <View style={styles.passwordRow}>
           <TextInput
             style={[styles.input, { flex: 1 }]}
@@ -862,14 +1251,17 @@ const RegisterAsElderScreen = () => {
             onPress={() => setShowPassword(!showPassword)}
             style={styles.showBtn}
           >
-            <Text style={styles.showText}>{showPassword ? 'Hide' : 'Show'}</Text>
+            <Text style={styles.showText}>
+              {showPassword ? 'Hide' : 'Show'}
+            </Text>
           </TouchableOpacity>
         </View>
         {!isPasswordValid && password.length > 0 && (
-          <Text style={styles.error}>Password must be at least 6 characters</Text>
+          <Text style={styles.error}>
+            Password must be at least 6 characters
+          </Text>
         )}
 
-        {/* Age */}
         <TextInput
           style={styles.input}
           placeholder="Age"
@@ -878,23 +1270,21 @@ const RegisterAsElderScreen = () => {
           onChangeText={(t) => setAge(t.replace(/[^0-9]/g, ''))}
         />
         {!isAgeValid && age.length > 0 && (
-          <Text style={styles.error}>Enter a valid age (1–120)</Text>
+          <Text style={styles.error}>Enter a valid age</Text>
         )}
 
-        {/* Phone Number */}
         <TextInput
           style={styles.input}
-          placeholder="Phone Number (10 digits)"
+          placeholder="Phone Number"
           keyboardType="number-pad"
           maxLength={10}
           value={phone}
           onChangeText={(t) => setPhone(t.replace(/[^0-9]/g, ''))}
         />
         {!isPhoneValid && phone.length > 0 && (
-          <Text style={styles.error}>Enter a valid 10-digit phone number</Text>
+          <Text style={styles.error}>Invalid phone number</Text>
         )}
 
-        {/* Gender */}
         <TextInput
           style={styles.input}
           placeholder="Gender (Male / Female / Other)"
@@ -902,10 +1292,9 @@ const RegisterAsElderScreen = () => {
           onChangeText={setGender}
         />
         {!isGenderValid && gender.length > 0 && (
-          <Text style={styles.error}>Enter Male, Female, or Other</Text>
+          <Text style={styles.error}>Invalid gender</Text>
         )}
 
-        {/* Address */}
         <TextInput
           style={[styles.input, { height: 70 }]}
           placeholder="Address"
@@ -913,11 +1302,7 @@ const RegisterAsElderScreen = () => {
           value={address}
           onChangeText={setAddress}
         />
-        {address.trim() === '' && (
-          <Text style={styles.error}>Address cannot be empty</Text>
-        )}
 
-        {/* Register Button */}
         <TouchableOpacity
           style={[styles.button, !isFormValid && styles.disabledButton]}
           disabled={!isFormValid || loading}
@@ -930,12 +1315,11 @@ const RegisterAsElderScreen = () => {
           )}
         </TouchableOpacity>
 
-        {/* Footer */}
         <Text style={styles.footer}>
           Already have an account?
           <Text
             style={styles.link}
-            onPress={() => navigation.navigate('LoginAsElder' as never)}
+            onPress={() => navigation.navigate('LoginAsElder')}
           >
             {' '}
             Login
@@ -948,7 +1332,7 @@ const RegisterAsElderScreen = () => {
 
 export default RegisterAsElderScreen;
 
-/* ===================== STYLES ====================== */
+/* ================= STYLES ================= */
 
 const styles = StyleSheet.create({
   container: {
@@ -958,7 +1342,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-
   card: {
     width: '100%',
     maxWidth: 420,
@@ -967,20 +1350,17 @@ const styles = StyleSheet.create({
     padding: 25,
     elevation: 10,
   },
-
   title: {
     fontSize: 26,
     fontWeight: '700',
     textAlign: 'center',
   },
-
   subtitle: {
     textAlign: 'center',
     fontSize: 15,
     color: '#6B7280',
     marginBottom: 20,
   },
-
   input: {
     height: 48,
     borderWidth: 1,
@@ -991,27 +1371,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 12,
   },
-
   passwordRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-
   showBtn: {
     paddingHorizontal: 8,
   },
-
   showText: {
     color: '#2563EB',
     fontWeight: '600',
   },
-
   error: {
     fontSize: 12,
     color: '#DC2626',
     marginBottom: 5,
   },
-
   button: {
     backgroundColor: '#22C55E',
     paddingVertical: 14,
@@ -1019,22 +1394,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
-
   disabledButton: {
     backgroundColor: '#9AE6B4',
   },
-
   buttonText: {
     color: '#fff',
     fontSize: 17,
     fontWeight: '700',
   },
-
   footer: {
     marginTop: 18,
     textAlign: 'center',
   },
-
   link: {
     color: '#2563EB',
     fontWeight: '700',
