@@ -4,8 +4,49 @@ const { get } = require("axios");
 const Caregiver = require("../models/Caregiver");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { generateOtp } = require("../utils/generateOtp");
+const { sendOtpMail } = require("../utils/mailer");
 
 // REGISTER CAREGIVER
+// const registerCaregiver = async (req, res) => {
+//   try {
+//     const {
+//       name,
+//       email,
+//       password,
+//       specialty,
+//       experience,
+//       location:address,
+//       phone,
+//       gender
+//     } = req.body;
+
+//     // Check if caregiver already exists
+//     const exists = await Caregiver.findOne({ email });
+//     if (exists) return res.status(400).json({ message: "Caregiver already exists" });
+
+//     const hashed = await bcrypt.hash(password, 10);
+
+//     const caregiver = new Caregiver({
+//       name,
+//       email,
+//       password: hashed,
+//       specialty,
+//       experience,
+//       location:address,
+//       phone,
+//       gender,
+//     });
+
+//    await caregiver.save();
+
+//     res.status(201).json({ message: "Caregiver registered successfully!" });
+
+//   } catch (error) {
+//     console.log("REGISTER ERROR:", error);
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 const registerCaregiver = async (req, res) => {
   try {
     const {
@@ -14,16 +55,19 @@ const registerCaregiver = async (req, res) => {
       password,
       specialty,
       experience,
-      location:address,
+      location: address,
       phone,
       gender
     } = req.body;
 
-    // Check if caregiver already exists
     const exists = await Caregiver.findOne({ email });
-    if (exists) return res.status(400).json({ message: "Caregiver already exists" });
+    if (exists)
+      return res.status(400).json({ message: "Caregiver already exists" });
 
     const hashed = await bcrypt.hash(password, 10);
+
+    // 🔐 Generate OTP
+    const otp = generateOtp();
 
     const caregiver = new Caregiver({
       name,
@@ -31,20 +75,72 @@ const registerCaregiver = async (req, res) => {
       password: hashed,
       specialty,
       experience,
-      location:address,
+      location: address,
       phone,
       gender,
+
+      emailOtp: otp,
+      otpExpiry: Date.now() + 10 * 60 * 1000, // 10 min
+      isEmailVerified: false,
     });
 
-   await caregiver.save();
+    await caregiver.save();
 
-    res.status(201).json({ message: "Caregiver registered successfully!" });
+    // 📧 Send OTP Mail
+    await sendOtpMail(email, otp);
+
+    res.status(201).json({
+      message: "Caregiver registered successfully. OTP sent to email.",
+    });
 
   } catch (error) {
     console.log("REGISTER ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
+const verifyCaregiverOtp = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    const caregiver = await Caregiver.findOne({ email });
+    if (!caregiver)
+      return res.status(404).json({ message: "Caregiver not found" });
+
+    if (
+      caregiver.emailOtp !== otp ||
+      caregiver.otpExpiry < Date.now()
+    ) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    caregiver.isEmailVerified = true;
+    caregiver.emailOtp = undefined;
+    caregiver.otpExpiry = undefined;
+
+    await caregiver.save();
+
+    // 🔑 Auto-login token
+    const token = jwt.sign(
+      { id: caregiver._id, role: "caregiver" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.json({
+      message: "Email verified successfully",
+      user: {
+        id: caregiver._id,
+        role: "caregiver",
+      },
+      token,
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 // CAREGIVER LOGIN
 const loginCaregiver = async (req, res) => {
@@ -53,6 +149,11 @@ const loginCaregiver = async (req, res) => {
 
     const caregiver = await Caregiver.findOne({ email });
     if (!caregiver) return res.status(400).json({ message: "Caregiver not found" });
+    if (!caregiver.isEmailVerified) {
+  return res.status(403).json({
+    message: "Please verify your email before login",
+  });
+}
 
     const match = await bcrypt.compare(password, caregiver.password);
     if (!match) return res.status(400).json({ message: "Invalid password" });
@@ -184,6 +285,7 @@ module.exports = {
   getCaregiverById,
   getMyProfile,
   updateMyProfile,
-  changeCaregiverPassword
+  changeCaregiverPassword,
+  verifyCaregiverOtp
 };
 

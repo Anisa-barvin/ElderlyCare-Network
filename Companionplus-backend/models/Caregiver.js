@@ -32,19 +32,62 @@
 // module.exports = mongoose.model("Caregiver", caregiverSchema);
 
 
+
+
+
+
+// const mongoose = require("mongoose");
+
+// const caregiverSchema = new mongoose.Schema({
+//   name: String,
+//   email: String,
+//   password: String,
+//   specialty: String,
+//   location: String,
+//   address: String,   // ✅ Add this
+
+//   experience: String,
+//   phone: String,
+//   gender: String,
+// });
+
+// module.exports = mongoose.model("Caregiver", caregiverSchema);
+
+
+
+
+
 const mongoose = require("mongoose");
 
 const caregiverSchema = new mongoose.Schema({
   name: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true, // 🔐 avoid duplicate emails
+  },
   password: String,
+
   specialty: String,
   location: String,
-  address: String,   // ✅ Add this
+  address: String,
 
   experience: String,
   phone: String,
   gender: String,
+
+  /* ===== EMAIL VERIFICATION FIELDS ===== */
+  isEmailVerified: {
+    type: Boolean,
+    default: false,
+  },
+
+  emailOtp: {
+    type: String,
+  },
+
+  otpExpiry: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("Caregiver", caregiverSchema);

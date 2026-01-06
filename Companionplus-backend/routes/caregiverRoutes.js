@@ -48,7 +48,8 @@ const {
   getCaregiverById,
   getMyProfile,
   updateMyProfile,
-  changeCaregiverPassword
+  changeCaregiverPassword,
+  verifyCaregiverOtp
 } = require("../controllers/caregiverController");
 
 // Register caregiver
@@ -75,5 +76,6 @@ router.put(
   auth,
   changeCaregiverPassword
 );
+router.post("/verify-otp", verifyCaregiverOtp);
 
 module.exports = router;

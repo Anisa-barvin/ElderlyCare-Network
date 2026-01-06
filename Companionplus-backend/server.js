@@ -91,7 +91,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const authRoutes = require("./routes/authRoutes");
-
+const emailRoutes = require("./routes/emailRoutes");
 const app = express();
 
 /* ===================== MIDDLEWARE ===================== */
@@ -114,7 +114,7 @@ app.use("/api/messages", require("./routes/messageRoutes"));
 app.use("/api/reminders", require("./routes/reminderRoutes"));
 app.use("/api/ai", require("./routes/aiRoutes"));
 app.use("/api/speech", require("./routes/speechRoutes"));
-
+app.use("/api/email", emailRoutes);
 
 /* ===================== HEALTH CHECK ===================== */
 
