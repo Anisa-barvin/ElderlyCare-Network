@@ -1,4 +1,4 @@
- ##🌿 ElderCare Network (Companion+)
+🌿 ElderCare Network (Companion+)
 
 ElderCare Network is a modern, compassionate platform designed to support elderly individuals by connecting them with caregivers, family members, and essential services — all in one place.
 
