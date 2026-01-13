@@ -17,27 +17,27 @@ Backend API:
 
 ElderlyCare-Network/
 │
-├── CompanionPlusApp/                     # Frontend (React Native + Expo Web)
-│   ├── assets/                           # Images, icons, fonts
-│   ├── components/                       # Reusable UI components
-│   ├── navigation/                       # Navigation setup (React Navigation)
-│   ├── screens/                          # App screens (Auth, Chat, Profile, etc.)
-│   ├── utils/                            # API config & helpers
-│   ├── App.tsx                           # App entry point
-│   ├── index.css                         # Web-specific styles
-│   └── package.json                     # Frontend dependencies
+├── CompanionPlusApp/ # Frontend (React Native + Expo Web)
+│ ├── assets/ # Images, icons, fonts
+│ ├── components/ # Reusable UI components
+│ ├── navigation/ # Navigation setup (React Navigation)
+│ ├── screens/ # App screens (Auth, Chat, Profile, etc.)
+│ ├── utils/ # API config & helpers
+│ ├── App.tsx # App entry point
+│ ├── index.css # Web-specific styles
+│ └── package.json # Frontend dependencies
 │
-├── Companionplus-backend/                # Backend (Node.js + Express)
-│   ├── config/                           # Database & environment config
-│   ├── controllers/                     # Route controllers (Auth, Chat, etc.)
-│   ├── middleware/                      # Auth & error middleware
-│   ├── models/                           # MongoDB schemas
-│   ├── routes/                           # API routes
-│   ├── utils/                            # Mailer, OTP, helpers
-│   ├── server.js                         # Backend entry point
-│   └── package.json                     # Backend dependencies
+├── Companionplus-backend/ # Backend (Node.js + Express)
+│ ├── config/ # Database & environment config
+│ ├── controllers/ # Route controllers (Auth, Chat, etc.)
+│ ├── middleware/ # Auth & error middleware
+│ ├── models/ # MongoDB schemas
+│ ├── routes/ # API routes
+│ ├── utils/ # Mailer, OTP, helpers
+│ ├── server.js # Backend entry point
+│ └── package.json # Backend dependencies
 │
-├── README.md                             # Project documentation
+└── README.md # Project documentation
 
 
 
