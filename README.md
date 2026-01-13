@@ -38,15 +38,16 @@ ElderlyCare-Network/
 │
 └── README.md                        # Project documentation
 
-
+```
 ## ⚙️ Installation & Setup
 
 🔹 Frontend Setup
 
 ## Clone the repository:
 
+```
 git clone https://github.com/Anisa-barvin/ElderlyCare-Network.git
-
+```
 
 ## Navigate to frontend:
 
@@ -54,44 +55,46 @@ cd ElderlyCare-Network/CompanionPlusApp
 
 
 ## Install dependencies:
-
+```
 npm install
-
+```
 
 Run locally:
-
+```
 npx expo start
-
+```
 
 ## Build for web:
-
+```
 npx expo export -p web
-
+```
 ## 🔹 Backend Setup
 
 Navigate to backend:
-
+```
 cd ElderlyCare-Network/Companionplus-backend
-
+```
 
 Install dependencies:
-
+```
 npm install
-
+```
 
 Start server:
-
+```
 node server.js
-
+```
 ## 🔐 Environment Variables (Backend)
 
 Set these in Render Dashboard → Environment Variables:
-
-MONGO_URI=
-JWT_SECRET=
-BREVO_API_KEY=
-BREVO_SENDER_EMAIL=
-PORT=10000
+```
+MONGO_URI=YOUR_MONGODB_URL
+JWT_SECRET=YOUR_JWT_SECRET_KEY
+GROQ_API_KEY=YOUR_GROQ_API_KEY_KEY
+ASSEMBLYAI_API_KEY=YOUR_ASSEMBLYAI_API_KEY
+BREVO_SENDER_EMAIL=YOUR_BREVO_SENDER_EMAIL
+BREVO_API_KEY=YOUR_BREVO_API_KEY
+```
 
 ## ✨ Key Features
 
