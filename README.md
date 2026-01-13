@@ -12,6 +12,7 @@ Website:
 Backend API:
 👉 https://elderlycare-network-backend.onrender.com
 
+
 📁 Project Structure
 ElderlyCare-Network/
 │── CompanionPlusApp/              # Frontend (React Native + Expo Web)
