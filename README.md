@@ -14,29 +14,33 @@ Backend API:
 
 
 📁 Project Structure
-ElderlyCare-NetWork/                # Frontend (React Native + Expo Web)
-│── CompanionPlusApp/
-│   │── assets/
-│   │── components/
-│   │── navigation/
-│   │── screens/
-│   │── utils/
-│   │── App.tsx
-│   │── index.css
-│   │── package.json
+ElderlyCare-Network/
 │
-│── Companionplus-backend/          # Backend (Node.js + Express)
-│   │── config/
-│   │── controllers/
-│   │── middleware/
-│   │── models/
-│   │── utils/
-│   │── server.js
-│   │── package.json
+├── CompanionPlusApp/                     # Frontend (React Native + Expo Web)
+│   ├── assets/                           # Images, icons, fonts
+│   ├── components/                       # Reusable UI components
+│   ├── navigation/                       # Navigation setup (React Navigation)
+│   ├── screens/                          # App screens (Auth, Chat, Profile, etc.)
+│   ├── utils/                            # API config & helpers
+│   ├── App.tsx                           # App entry point
+│   ├── index.css                         # Web-specific styles
+│   └── package.json                     # Frontend dependencies
 │
-│── README.md                       # Project documentation
+├── Companionplus-backend/                # Backend (Node.js + Express)
+│   ├── config/                           # Database & environment config
+│   ├── controllers/                     # Route controllers (Auth, Chat, etc.)
+│   ├── middleware/                      # Auth & error middleware
+│   ├── models/                           # MongoDB schemas
+│   ├── routes/                           # API routes
+│   ├── utils/                            # Mailer, OTP, helpers
+│   ├── server.js                         # Backend entry point
+│   └── package.json                     # Backend dependencies
+│
+├── README.md                             # Project documentation
+
 
 ⚙️ Installation & Setup
+
 🔹 Frontend Setup
 
 Clone the repository:
