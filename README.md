@@ -17,17 +17,17 @@ Backend API:
 
 🔹 Frontend Setup
 
-Clone the repository:
+## Clone the repository:
 
 git clone https://github.com/Anisa-barvin/ElderlyCare-Network.git
 
 
-Navigate to frontend:
+## Navigate to frontend:
 
 cd ElderlyCare-Network/CompanionPlusApp
 
 
-Install dependencies:
+## Install dependencies:
 
 npm install
 
@@ -37,11 +37,11 @@ Run locally:
 npx expo start
 
 
-Build for web:
+## Build for web:
 
 npx expo export -p web
 
-🔹 Backend Setup
+## 🔹 Backend Setup
 
 Navigate to backend:
 
@@ -57,7 +57,7 @@ Start server:
 
 node server.js
 
-🔐 Environment Variables (Backend)
+## 🔐 Environment Variables (Backend)
 
 Set these in Render Dashboard → Environment Variables:
 
@@ -67,8 +67,9 @@ BREVO_API_KEY=
 BREVO_SENDER_EMAIL=
 PORT=10000
 
-✨ Key Features
-👴 Elder Module
+## ✨ Key Features
+
+## 👴 Elder Module
 
 Elder registration & secure login
 
@@ -78,7 +79,7 @@ Profile management
 
 Chat with caregivers & family
 
-🧑‍⚕️ Caregiver Module
+## 🧑‍⚕️ Caregiver Module
 
 Caregiver registration
 
@@ -86,37 +87,38 @@ OTP-based verification
 
 Elder interaction & communication
 
-💬 Real-Time Chat
+## 💬 Real-Time Chat
 
 Secure messaging using Socket.IO
 
 Auto-scroll & live updates
 
-🔐 Authentication
+## 🔐 Authentication
 
 JWT-based authentication
 
 Role-based navigation (Elder / Caregiver)
 
-📧 Email Services
+## 📧 Email Services
 
 OTP email verification using Brevo
 
 Secure transactional email delivery
 
-🌐 Cross-Platform
+## 🌐 Cross-Platform
 
 Mobile (Android / iOS)
 
 Web (Expo Web + Netlify)
 
-🚀 Deployment
+## 🚀 Deployment
 Service	Platform
 Frontend	Netlify
 Backend	Render
 Database	MongoDB Atlas
 Email	Brevo
-🔮 Future Enhancements
+
+## 🔮 Future Enhancements
 
 Emergency alert system 🚨
 
@@ -134,34 +136,34 @@ Multi-language support
 
 This project is inspired by the need for accessible, reliable, and compassionate elderly care solutions in today’s fast-paced digital world.
 
-👩‍💻 Author
+## 👩‍💻 Author
 
-Anisa Barvin
+## Anisa Barvin
 
 📧 Email: barvinanisa@gmail.com
 
 🔗 GitHub: https://github.com/Anisa-barvin
 
-Anika V
+## Anika V
 
 📧 Email: anikavadivel@gmail.com
 
 🔗 GitHub: https://github.com/Anika02023
 
-Archana gurusamy
+## Archana gurusamy
 
 📧 Email: archanagurusamy648@gmail.com
 
 🔗 GitHub: https://github.com/ARCHANA-SENGUNTHAR
 
-Hemalatha P N
+## Hemalatha P N
 
 📧 Email: hemalathanatarajan28@gmail.com
 
 🔗 GitHub: https://github.com/hemalatha2005
 
 
-⭐ Support
+## ⭐ Support
 
 If you like this project, don’t forget to ⭐ the repository!
 Your support helps improve and expand ElderCare Network 💚
