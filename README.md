@@ -14,11 +14,10 @@ Backend API:
 
 
 📁 Project Structure
-ElderlyCare-Network/
-│── CompanionPlusApp/              # Frontend (React Native + Expo Web)
+ElderlyCare-NetWork/                # Frontend (React Native + Expo Web)
+│── CompanionPlusApp/
 │   │── assets/
 │   │── components/
-│   │── context/
 │   │── navigation/
 │   │── screens/
 │   │── utils/
@@ -31,13 +30,11 @@ ElderlyCare-Network/
 │   │── controllers/
 │   │── middleware/
 │   │── models/
-│   │── routes/
 │   │── utils/
 │   │── server.js
 │   │── package.json
 │
 │── README.md                       # Project documentation
-
 
 ⚙️ Installation & Setup
 🔹 Frontend Setup
