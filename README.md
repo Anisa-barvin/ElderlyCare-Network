@@ -37,20 +37,20 @@ ElderlyCare-Network/
 ```
 ## ⚙️ Installation & Setup
 
-🔹 Frontend Setup
+## 🔹__Frontend Setup__
 
-## Clone the repository:
+### Clone the repository:
 
 ```
 git clone https://github.com/Anisa-barvin/ElderlyCare-Network.git
 ```
 
-## Navigate to frontend:
+### Navigate to frontend:
 
 cd ElderlyCare-Network/CompanionPlusApp
 
 
-## Install dependencies:
+### Install dependencies:
 ```
 npm install
 ```
@@ -60,11 +60,11 @@ Run locally:
 npx expo start
 ```
 
-## Build for web:
+### Build for web:
 ```
 npx expo export -p web
 ```
-## 🔹 Backend Setup
+## 🔹__Backend Setup__
 
 Navigate to backend:
 ```
