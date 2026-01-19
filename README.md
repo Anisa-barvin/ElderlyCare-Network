@@ -36,7 +36,7 @@ ElderlyCare-Network/
 ```
 ## ⚙️ Installation & Setup
 
-## 🔹__Frontend Setup__
+## 🔹*Frontend Setup*
 
 ### Clone the repository:
 
@@ -63,7 +63,8 @@ npx expo start
 ```
 npx expo export -p web
 ```
-## 🔹__Backend Setup__
+
+## 🔹*Backend Setup*
 
 Navigate to backend:
 ```
@@ -160,6 +161,15 @@ BREVO_API_KEY=YOUR_BREVO_API_KEY
 
 This project is inspired by the need for accessible, reliable, and compassionate elderly care solutions in today’s fast-paced digital world.
 
+## GUIDANCE:
+
+## Dr. S. Prakash
+## *Head of Department-Information Technology,Sri Shakthi Institute of Engineering and Technology-Coimbatore*
+
+*I would like to thank our guide for his support throughout the development of this project, that we can finally bring our webiste live. It was very crucial time period where we came across many 
+knowledgable insights.
+Thank you sir!*
+
 ## 👩‍💻 Author
 
 ## Anisa Barvin
@@ -189,5 +199,6 @@ This project is inspired by the need for accessible, reliable, and compassionate
 
 ## ⭐ Support
 
+I hope it will be useful to many elders, and peers review and feedback is supported to improve our project.
 If you like this project, don’t forget to ⭐ the repository!
 Your support helps improve and expand ElderCare Network 💚
