@@ -1,12 +1,11 @@
-## 🌿 ElderCare Network (Companion+)
+# A UNIFIED MERN APPLICATION FOR HOLISTIC ELDERLY ASSISTANCE-COMPANION+
 
 ElderCare Network is a modern, compassionate platform designed to support elderly individuals by connecting them with caregivers, family members, and essential services — all in one place.
 
 A secure and user-friendly digital companion for elderly care management, communication, and well-being.
 
-🌐 Live Project
+🌐 Website: 👉[Live Here](https://companionplus.netlify.app)
 
-Website:👉 [Live Here](https://companionplus.netlify.app)
 
 ## 📁 Project Structure
 ```
