@@ -6,11 +6,7 @@ A secure and user-friendly digital companion for elderly care management, commun
 
 🌐 Live Project
 
-Website:
-👉 https://companionplus.netlify.app
-
-Backend API:
-👉 https://elderlycare-network-backend.onrender.com
+Website:👉 [Live Here](https://companionplus.netlify.app)
 
 ## 📁 Project Structure
 ```
@@ -100,66 +96,66 @@ BREVO_API_KEY=YOUR_BREVO_API_KEY
 
 ## 👴 Elder Module
 
-Elder registration & secure login
+- Elder registration & secure login
 
-Email OTP verification
+- Email OTP verification
 
-Profile management
+- Profile management
 
-Chat with caregivers & family
+- Chat with caregivers & family
 
 ## 🧑‍⚕️ Caregiver Module
 
-Caregiver registration
+- Caregiver registration
 
-OTP-based verification
+- OTP-based verification
 
-Elder interaction & communication
+- Elder interaction & communication
 
 ## 💬 Real-Time Chat
 
-Secure messaging using Socket.IO
+- Secure messaging using Socket.IO
 
-Auto-scroll & live updates
+- Auto-scroll & live updates
 
 ## 🔐 Authentication
 
-JWT-based authentication
+- JWT-based authentication
 
-Role-based navigation (Elder / Caregiver)
+- Role-based navigation (Elder / Caregiver)
 
 ## 📧 Email Services
 
-OTP email verification using Brevo
+- OTP email verification using Brevo
 
-Secure transactional email delivery
+- Secure transactional email delivery
 
 ## 🌐 Cross-Platform
 
-Mobile (Android / iOS)
+- Mobile (Android / iOS)
 
-Web (Expo Web + Netlify)
+- Web (Expo Web + Netlify)
 
 ## 🚀 Deployment
-Service	Platform
-Frontend	Netlify
-Backend	Render
-Database	MongoDB Atlas
-Email	Brevo
+
+- Frontend: Netlify
+- Backend: Render
+- Database: MongoDB Atlas
+- Email: Brevo
 
 ## 🔮 Future Enhancements
 
-Emergency alert system 🚨
+- Emergency alert system 🚨
 
-Appointment scheduling with doctors
+- Appointment scheduling with doctors
 
-Health monitoring dashboard
+- Health monitoring dashboard
 
-Push notifications
+- Push notifications
 
-AI-powered caregiver recommendations
+- AI-powered caregiver recommendations
 
-Multi-language support
+- Multi-language support
 
 🙌 Acknowledgements
 
