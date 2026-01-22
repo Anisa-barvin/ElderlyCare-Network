@@ -94,7 +94,7 @@ BREVO_API_KEY=YOUR_BREVO_API_KEY
 
 ## ✨ Key Features
 
-## 👴 Elder Module
+### 👴 Elder Module
 
 - Elder registration & secure login
 
@@ -104,7 +104,7 @@ BREVO_API_KEY=YOUR_BREVO_API_KEY
 
 - Chat with caregivers & family
 
-## 🧑‍⚕️ Caregiver Module
+### 🧑‍⚕️ Caregiver Module
 
 - Caregiver registration
 
@@ -112,36 +112,38 @@ BREVO_API_KEY=YOUR_BREVO_API_KEY
 
 - Elder interaction & communication
 
-## 💬 Real-Time Chat
+### 💬 Real-Time Chat
 
 - Secure messaging using Socket.IO
 
 - Auto-scroll & live updates
 
-## 🔐 Authentication
+### 🔐 Authentication
 
 - JWT-based authentication
 
 - Role-based navigation (Elder / Caregiver)
 
-## 📧 Email Services
+### 📧 Email Services
 
 - OTP email verification using Brevo
 
 - Secure transactional email delivery
 
-## 🌐 Cross-Platform
+### 🌐 Cross-Platform
 
 - Mobile (Android / iOS)
 
 - Web (Expo Web + Netlify)
 
-## 🚀 Deployment
+### 🚀 Deployment
 
 - Frontend: Netlify
 - Backend: Render
 - Database: MongoDB Atlas
 - Email: Brevo
+
+---
 
 ## 🔮 Future Enhancements
 
@@ -157,9 +159,13 @@ BREVO_API_KEY=YOUR_BREVO_API_KEY
 
 - Multi-language support
 
-🙌 Acknowledgements
+---
+
+## 🙌 Acknowledgements
 
 This project is inspired by the need for accessible, reliable, and compassionate elderly care solutions in today’s fast-paced digital world.
+
+---
 
 ## GUIDANCE:
 
@@ -169,6 +175,8 @@ This project is inspired by the need for accessible, reliable, and compassionate
 *I would like to thank our guide for his support throughout the development of this project, that we can finally bring our webiste live. It was very crucial time period where we came across many 
 knowledgable insights.
 Thank you sir!*
+
+---
 
 ## 👩‍💻 Author
 
@@ -196,6 +204,7 @@ Thank you sir!*
 
 🔗 GitHub: https://github.com/hemalatha2005
 
+---
 
 ## ⭐ Support
 
